@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">StarWars</string>
+    <string name="please_enter_a_character_name">Please enter a character name</string>
 </resources>
