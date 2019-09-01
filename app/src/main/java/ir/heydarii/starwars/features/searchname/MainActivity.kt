@@ -1,5 +1,6 @@
 package ir.heydarii.starwars.features.searchname
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
@@ -9,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.starwars.R
 import ir.heydarii.starwars.base.BaseActivity
 import ir.heydarii.starwars.base.BaseApplication
+import ir.heydarii.starwars.base.Consts
 import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.data.DataRepository
+import ir.heydarii.starwars.features.details.CharacterDetailsActivity
 import ir.heydarii.starwars.pojo.CharacterSearchResult
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -43,9 +46,21 @@ class MainActivity : BaseActivity() {
     }
 
     private fun makeRecyclerAdapter() {
-        adapter = SearchNameRecyclerAdapter(list)
+        adapter = SearchNameRecyclerAdapter(list) { url: String, species: String ->
+            onCharacterSelected(
+                url,
+                species
+            )
+        }
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+    }
+
+    private fun onCharacterSelected(url: String, species: String) {
+        val intent = Intent(this, CharacterDetailsActivity::class.java)
+        intent.putExtra(Consts.URL, url)
+        intent.putExtra(Consts.SPECIES, species)
+        startActivity(intent)
     }
 
     private fun showRecycler(searchData: List<CharacterSearchResult>) {
