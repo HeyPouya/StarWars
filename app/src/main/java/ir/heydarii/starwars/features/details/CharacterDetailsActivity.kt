@@ -11,7 +11,9 @@ import ir.heydarii.starwars.base.BaseApplication
 import ir.heydarii.starwars.base.Consts
 import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.data.DataRepository
+import ir.heydarii.starwars.features.details.filmsadapter.FilmsRecyclerAdapter
 import ir.heydarii.starwars.features.details.speciesadapter.SpeciesRecyclerAdapter
+import ir.heydarii.starwars.pojo.FilmsDetailsResponse
 import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
 import kotlinx.android.synthetic.main.activity_character_details.*
 import kotlin.math.roundToInt
@@ -20,7 +22,9 @@ class CharacterDetailsActivity : BaseActivity() {
 
     lateinit var viewModel: CharacterDetailsViewModel
     private val speciesList = ArrayList<SpeciesDetailsResponse>()
-    private lateinit var speciedAdapter: SpeciesRecyclerAdapter
+    private lateinit var speciesAdapter: SpeciesRecyclerAdapter
+    private val filmsList = ArrayList<FilmsDetailsResponse>()
+    lateinit var filmsAdapter: FilmsRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +38,8 @@ class CharacterDetailsActivity : BaseActivity() {
             ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
 
         setUpSpeciesRecycler()
+        setUpFilmsRecycler()
+
 
         viewModel.getDetails(url)
 
@@ -56,13 +62,24 @@ class CharacterDetailsActivity : BaseActivity() {
 
         viewModel.speciesDetailsResponse.observe(this, Observer {
             speciesList.add(it)
-            speciedAdapter.notifyItemInserted(speciesList.lastIndex)
+            speciesAdapter.notifyItemInserted(speciesList.lastIndex)
+        })
+
+        viewModel.filmsDetailsResponse.observe(this, Observer {
+            filmsList.add(it)
+            filmsAdapter.notifyItemInserted(filmsList.lastIndex)
         })
     }
 
+    private fun setUpFilmsRecycler() {
+        filmsAdapter = FilmsRecyclerAdapter(filmsList)
+        recyclerFilms.adapter = filmsAdapter
+        recyclerFilms.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+    }
+
     private fun setUpSpeciesRecycler() {
-        speciedAdapter = SpeciesRecyclerAdapter(speciesList)
-        recyclerSpecies.adapter = speciedAdapter
+        speciesAdapter = SpeciesRecyclerAdapter(speciesList)
+        recyclerSpecies.adapter = speciesAdapter
         recyclerSpecies.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
 

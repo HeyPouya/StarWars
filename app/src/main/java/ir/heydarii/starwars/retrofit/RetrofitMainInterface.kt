@@ -1,10 +1,7 @@
 package ir.heydarii.starwars.retrofit
 
 import io.reactivex.Single
-import ir.heydarii.starwars.pojo.CharacterDetailsResponse
-import ir.heydarii.starwars.pojo.CharacterSearchResponse
-import ir.heydarii.starwars.pojo.PlanetDetailsResponse
-import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
+import ir.heydarii.starwars.pojo.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.Url
@@ -22,4 +19,7 @@ interface RetrofitMainInterface {
 
     @GET
     fun getSpeciesDetails(@Url url: String): Single<SpeciesDetailsResponse>
+
+    @GET
+    fun getFilmsDetails(@Url url: String) : Single<FilmsDetailsResponse>
 }

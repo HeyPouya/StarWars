@@ -3,10 +3,7 @@ package ir.heydarii.starwars.data
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ir.heydarii.starwars.pojo.CharacterDetailsResponse
-import ir.heydarii.starwars.pojo.CharacterSearchResponse
-import ir.heydarii.starwars.pojo.PlanetDetailsResponse
-import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
+import ir.heydarii.starwars.pojo.*
 import ir.heydarii.starwars.retrofit.RetrofitMainInterface
 
 class NetworkRepository(private val mainInterface: RetrofitMainInterface) {
@@ -32,6 +29,12 @@ class NetworkRepository(private val mainInterface: RetrofitMainInterface) {
 
     fun getSpeciesDetails(url: String): Single<SpeciesDetailsResponse> {
         return mainInterface.getSpeciesDetails(url)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun getFilmsDetails(url: String): Single<FilmsDetailsResponse> {
+        return mainInterface.getFilmsDetails(url)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }

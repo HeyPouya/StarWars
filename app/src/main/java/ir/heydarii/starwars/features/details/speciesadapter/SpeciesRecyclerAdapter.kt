@@ -24,8 +24,12 @@ class SpeciesRecyclerAdapter(private val list: List<SpeciesDetailsResponse>) :
 
     class SpeciesViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(speciesDetailsResponse: SpeciesDetailsResponse) {
-            view.txtName.text = speciesDetailsResponse.name
-            view.txtLanguage.text = speciesDetailsResponse.language
+            view.txtName.text = view.context.getString(
+                R.string.character_species_name_is,
+                speciesDetailsResponse.name
+            )
+            view.txtLanguage.text =
+                view.context.getString(R.string.planet_language_is, speciesDetailsResponse.language)
         }
 
     }

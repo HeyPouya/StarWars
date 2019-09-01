@@ -6,6 +6,7 @@ import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.starwars.base.BaseViewModel
 import ir.heydarii.starwars.data.DataRepository
 import ir.heydarii.starwars.pojo.CharacterDetailsResponse
+import ir.heydarii.starwars.pojo.FilmsDetailsResponse
 import ir.heydarii.starwars.pojo.PlanetDetailsResponse
 import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
 
@@ -15,13 +16,14 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
     val characterDetailsResponse = MutableLiveData<CharacterDetailsResponse>()
     val planetDetailsResponse = MutableLiveData<PlanetDetailsResponse>()
     val speciesDetailsResponse = MutableLiveData<SpeciesDetailsResponse>()
+    val filmsDetailsResponse = MutableLiveData<FilmsDetailsResponse>()
 
     fun getDetails(url: String) {
         disposable.add(repository.getCharacterDetails(url)
             .flatMap {
                 characterDetailsResponse.value = it
                 getSpeciesData(it.species)
-//                getFilmsData(it.films)
+                getFilmsData(it.films)
                 repository.getPlanetDetails(it.homeworld)
             }
             .subscribe({
@@ -32,14 +34,28 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
         )
     }
 
+    private fun getFilmsData(films: List<String>) {
+        films.forEach {
+            disposable.add(
+                repository.getFilmsDetails(it)
+                    .subscribe({
+                        filmsDetailsResponse.value = it
+                    }, {
+                        Logger.d(it)
+                    })
+            )
+        }
+    }
+
     private fun getSpeciesData(species: List<String>) {
         species.forEach {
-            disposable.add(repository.getSpeciesDetails(it)
-                .subscribe({
-                    speciesDetailsResponse.value = it
-                }, {
-                    Logger.d(it)
-                })
+            disposable.add(
+                repository.getSpeciesDetails(it)
+                    .subscribe({
+                        speciesDetailsResponse.value = it
+                    }, {
+                        Logger.d(it)
+                    })
             )
         }
     }

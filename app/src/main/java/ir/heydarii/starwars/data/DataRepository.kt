@@ -1,10 +1,7 @@
 package ir.heydarii.starwars.data
 
 import io.reactivex.Single
-import ir.heydarii.starwars.pojo.CharacterDetailsResponse
-import ir.heydarii.starwars.pojo.CharacterSearchResponse
-import ir.heydarii.starwars.pojo.PlanetDetailsResponse
-import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
+import ir.heydarii.starwars.pojo.*
 import ir.heydarii.starwars.retrofit.RetrofitMainInterface
 
 class DataRepository(mainInterface: RetrofitMainInterface) {
@@ -26,5 +23,9 @@ class DataRepository(mainInterface: RetrofitMainInterface) {
 
     fun getSpeciesDetails(url: String): Single<SpeciesDetailsResponse> {
         return networkRepository.getSpeciesDetails(url)
+    }
+
+    fun getFilmsDetails(url: String): Single<FilmsDetailsResponse> {
+        return networkRepository.getFilmsDetails(url)
     }
 }
