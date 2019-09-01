@@ -31,15 +31,16 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="@string/please_enter_a_character_name"
+                android:imeOptions="actionSearch"
                 android:inputType="textPersonName"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp" />
 
             <ProgressBar
+                android:layout_gravity="center"
                 android:id="@+id/loading"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:padding="12dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:visibility="invisible" />
 
             <ImageView

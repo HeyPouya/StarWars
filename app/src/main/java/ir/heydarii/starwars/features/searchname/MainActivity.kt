@@ -3,6 +3,7 @@ package ir.heydarii.starwars.features.searchname
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,6 +42,14 @@ class MainActivity : BaseActivity() {
         imgSearch.setOnClickListener {
             loading.visibility = View.VISIBLE
             viewModel.searchCharacterName(edtSearchName.text.toString())
+        }
+
+        edtSearchName.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                loading.visibility = View.VISIBLE
+                viewModel.searchCharacterName(edtSearchName.text.toString())
+            }
+            false
         }
 
     }
