@@ -49,7 +49,7 @@ class MainActivity : BaseActivity() {
                 loading.visibility = View.VISIBLE
                 viewModel.searchCharacterName(edtSearchName.text.toString())
             }
-            false
+            true
         }
 
     }
@@ -73,6 +73,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun showRecycler(searchData: List<CharacterSearchResult>) {
+        list.clear()
         list.addAll(searchData)
         adapter.notifyDataSetChanged()
     }

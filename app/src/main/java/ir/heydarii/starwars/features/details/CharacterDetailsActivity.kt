@@ -80,7 +80,7 @@ class CharacterDetailsActivity : BaseActivity() {
     private fun setUpSpeciesRecycler() {
         speciesAdapter = SpeciesRecyclerAdapter(speciesList)
         recyclerSpecies.adapter = speciesAdapter
-        recyclerSpecies.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        recyclerSpecies.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
     }
 
     private fun getInch(height: String): String {
