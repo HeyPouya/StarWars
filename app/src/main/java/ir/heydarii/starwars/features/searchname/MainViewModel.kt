@@ -12,7 +12,9 @@ class MainViewModel(private val dataRepository: DataRepository) : BaseViewModel(
     private val disposable = CompositeDisposable()
     val searchNameData = MutableLiveData<List<CharacterSearchResult>>()
 
-
+    /**
+     * Fetches Character data with the given name
+     */
     fun searchCharacterName(characterName: String) {
         disposable.add(
             dataRepository.searchCharacterName(characterName)
@@ -20,6 +22,7 @@ class MainViewModel(private val dataRepository: DataRepository) : BaseViewModel(
                     searchNameData.value = it.results
                 }, {
                     Logger.d(it)
+                    //TODO : Some Error handling
                 })
         )
     }

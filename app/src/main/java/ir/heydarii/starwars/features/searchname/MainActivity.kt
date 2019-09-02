@@ -28,22 +28,29 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //viewModelFactory to pass the dataRepository to viewModel
         val viewModelFactory =
             ViewModelFactory(DataRepository((application as BaseApplication).mainInterface))
+
+        //instantiating the viewModel
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
+        //instantiating the Recycler
         makeRecyclerAdapter()
 
+        //subscribing to search character response
         viewModel.searchNameData.observe(this, Observer {
             loading.visibility = View.INVISIBLE
             showRecycler(it)
         })
 
+        //starting the search by clicking on the image
         imgSearch.setOnClickListener {
             loading.visibility = View.VISIBLE
             viewModel.searchCharacterName(edtSearchName.text.toString())
         }
 
+        //starting the search by keyboard
         edtSearchName.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 loading.visibility = View.VISIBLE
@@ -54,24 +61,29 @@ class MainActivity : BaseActivity() {
 
     }
 
+    /**
+     * Instantiates the recyclerView and adds onItemClickListener to it
+     */
     private fun makeRecyclerAdapter() {
-        adapter = SearchNameRecyclerAdapter(list) { url: String, species: String ->
-            onCharacterSelected(
-                url,
-                species
-            )
+        adapter = SearchNameRecyclerAdapter(list) { url: String-> onCharacterSelected(url)
         }
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
 
-    private fun onCharacterSelected(url: String, species: String) {
+    /**
+     * onItemClickListener for the recyclerView.
+     * It navigates the user to CharacterDetailsActivity
+     */
+    private fun onCharacterSelected(url: String) {
         val intent = Intent(this, CharacterDetailsActivity::class.java)
         intent.putExtra(Consts.URL, url)
-        intent.putExtra(Consts.SPECIES, species)
         startActivity(intent)
     }
 
+    /**
+     * Updates the recycler's data every time that new data arrives
+     */
     private fun showRecycler(searchData: List<CharacterSearchResult>) {
         list.clear()
         list.addAll(searchData)

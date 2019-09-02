@@ -3,9 +3,7 @@ package ir.heydarii.starwars.base
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-open class BaseActivity : AppCompatActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-}
+/*
+ * This class will be used to configure all Activities if needed
+ */
+open class BaseActivity : AppCompatActivity()

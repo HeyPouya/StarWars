@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.character_search_item.view.*
 
 class SearchNameRecyclerAdapter(
     private val list: List<CharacterSearchResult>,
-    private val clickListener: (String, String) -> Unit
+    private val clickListener: (String) -> Unit
 ) :
     RecyclerView.Adapter<SearchNameRecyclerAdapter.SearchNameViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchNameViewHolder {
@@ -28,7 +28,7 @@ class SearchNameRecyclerAdapter(
 
     class SearchNameViewHolder(
         private val view: View,
-        val clickListener: (String, String) -> Unit
+        val clickListener: (String) -> Unit
     ) : RecyclerView.ViewHolder(view) {
         fun bind(characterSearchResult: CharacterSearchResult) {
             view.txtName.text =
@@ -39,7 +39,7 @@ class SearchNameRecyclerAdapter(
             )
 
             view.setOnClickListener {
-                clickListener(characterSearchResult.url, characterSearchResult.species.first())
+                clickListener(characterSearchResult.url)
             }
         }
 

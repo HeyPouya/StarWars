@@ -18,12 +18,28 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
     val speciesDetailsResponse = MutableLiveData<SpeciesDetailsResponse>()
     val filmsDetailsResponse = MutableLiveData<FilmsDetailsResponse>()
 
+    /**
+     * Fetches details about character
+     * it also contains these urls :
+     *
+     * planet details url
+     * species details url
+     * films details urls
+     */
     fun getDetails(url: String) {
         disposable.add(repository.getCharacterDetails(url)
             .flatMap {
+
+                //emitting the characterDetails to activity
                 characterDetailsResponse.value = it
+
+                //fetching the species details
                 getSpeciesData(it.species)
+
+                //fetching the films details
                 getFilmsData(it.films)
+
+                //flatMapping to get PlanetDetails
                 repository.getPlanetDetails(it.homeworld)
             }
             .subscribe({
@@ -34,6 +50,9 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
         )
     }
 
+    /**
+     * Fetches all films url data one by one
+     */
     private fun getFilmsData(films: List<String>) {
         films.forEach {
             disposable.add(
@@ -47,6 +66,9 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
         }
     }
 
+    /**
+     * Fetches all species url data one by one
+     */
     private fun getSpeciesData(species: List<String>) {
         species.forEach {
             disposable.add(
