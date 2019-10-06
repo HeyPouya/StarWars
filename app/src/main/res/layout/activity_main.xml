@@ -4,61 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/img_main_background"
     tools:context=".features.searchname.MainActivity">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardSearchName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:cardCornerRadius="25dp"
-        app:cardUseCompatPadding="true"
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/ic_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-            <EditText
-                android:id="@+id/edtSearchName"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:hint="@string/please_enter_a_character_name"
-                android:imeOptions="actionSearch"
-                android:inputType="textPersonName"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp" />
+    <LinearLayout
+        android:alpha="0.7"
+        android:id="@+id/linearSearchName"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/search_edittext_back"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgLogo">
 
-            <ProgressBar
-                android:layout_gravity="center"
-                android:id="@+id/loading"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:visibility="invisible" />
 
-            <ImageView
-                android:id="@+id/imgSearch"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:padding="12dp"
-                android:src="@drawable/ic_search" />
+        <EditText
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:id="@+id/edtSearchName"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:hint="@string/please_enter_a_character_name"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp" />
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        <ProgressBar
+            android:id="@+id/loading"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:id="@+id/imgSearch"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/search"
+            android:padding="12dp"
+            android:src="@drawable/ic_search" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardSearchName" />
+        app:layout_constraintTop_toBottomOf="@id/linearSearchName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

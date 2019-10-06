@@ -13,4 +13,6 @@
     <string name="film_title_is">Title : %1s</string>
     <string name="film_release_date_is">Release date : %1s</string>
     <string name="film_opening_is">Opening crawl : %1s</string>
+    <string name="logo">logo</string>
+    <string name="search">search</string>
 </resources>
