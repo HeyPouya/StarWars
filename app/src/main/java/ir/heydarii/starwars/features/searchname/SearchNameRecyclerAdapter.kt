@@ -31,11 +31,9 @@ class SearchNameRecyclerAdapter(
         val clickListener: (String) -> Unit
     ) : RecyclerView.ViewHolder(view) {
         fun bind(characterSearchResult: CharacterSearchResult) {
-            view.txtName.text =
-                view.context.getString(R.string.character_name_is, characterSearchResult.name)
+            view.txtName.text = characterSearchResult.name
             view.txtBirthDate.text = view.context.getString(
-                R.string.character_birth_date_is,
-                characterSearchResult.birth_year
+                R.string.character_birth_date_is, characterSearchResult.birth_year
             )
 
             view.setOnClickListener {
