@@ -18,9 +18,9 @@ import ir.heydarii.starwars.features.details.CharacterDetailsActivity
 import ir.heydarii.starwars.pojo.CharacterSearchResult
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity() {
+class SearchCharacterActivity : BaseActivity() {
 
-    lateinit var viewModel: MainViewModel
+    lateinit var viewModel: SearchCharacterViewModel
     lateinit var adapter: SearchNameRecyclerAdapter
     private val list = ArrayList<CharacterSearchResult>()
 
@@ -30,10 +30,11 @@ class MainActivity : BaseActivity() {
 
         //viewModelFactory to pass the dataRepository to viewModel
         val viewModelFactory =
-            ViewModelFactory(DataRepository((application as BaseApplication).mainInterface))
+                ViewModelFactory(DataRepository((application as BaseApplication).mainInterface))
 
         //instantiating the viewModel
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+        viewModel =
+                ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
 
         //instantiating the Recycler
         makeRecyclerAdapter()
@@ -65,7 +66,8 @@ class MainActivity : BaseActivity() {
      * Instantiates the recyclerView and adds onItemClickListener to it
      */
     private fun makeRecyclerAdapter() {
-        adapter = SearchNameRecyclerAdapter(list) { url: String-> onCharacterSelected(url)
+        adapter = SearchNameRecyclerAdapter(list) { url: String ->
+            onCharacterSelected(url)
         }
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)

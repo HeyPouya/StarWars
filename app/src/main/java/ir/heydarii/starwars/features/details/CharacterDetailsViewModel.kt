@@ -28,25 +28,25 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
      */
     fun getDetails(url: String) {
         disposable.add(repository.getCharacterDetails(url)
-            .flatMap {
+                .flatMap {
 
-                //emitting the characterDetails to activity
-                characterDetailsResponse.value = it
+                    //emitting the characterDetails to activity
+                    characterDetailsResponse.value = it
 
-                //fetching the species details
-                getSpeciesData(it.species)
+                    //fetching the species details
+                    getSpeciesData(it.species)
 
-                //fetching the films details
-                getFilmsData(it.films)
+                    //fetching the films details
+                    getFilmsData(it.films)
 
-                //flatMapping to get PlanetDetails
-                repository.getPlanetDetails(it.homeworld)
-            }
-            .subscribe({
-                planetDetailsResponse.value = it
-            }, {
-                Logger.d(it)
-            })
+                    //flatMapping to get PlanetDetails
+                    repository.getPlanetDetails(it.homeworld)
+                }
+                .subscribe({
+                    planetDetailsResponse.value = it
+                }, {
+                    Logger.d(it)
+                })
         )
     }
 
@@ -56,12 +56,12 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
     private fun getFilmsData(films: List<String>) {
         films.forEach {
             disposable.add(
-                repository.getFilmsDetails(it)
-                    .subscribe({
-                        filmsDetailsResponse.value = it
-                    }, {
-                        Logger.d(it)
-                    })
+                    repository.getFilmsDetails(it)
+                            .subscribe({
+                                filmsDetailsResponse.value = it
+                            }, {
+                                Logger.d(it)
+                            })
             )
         }
     }
@@ -72,12 +72,12 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
     private fun getSpeciesData(species: List<String>) {
         species.forEach {
             disposable.add(
-                repository.getSpeciesDetails(it)
-                    .subscribe({
-                        speciesDetailsResponse.value = it
-                    }, {
-                        Logger.d(it)
-                    })
+                    repository.getSpeciesDetails(it)
+                            .subscribe({
+                                speciesDetailsResponse.value = it
+                            }, {
+                                Logger.d(it)
+                            })
             )
         }
     }

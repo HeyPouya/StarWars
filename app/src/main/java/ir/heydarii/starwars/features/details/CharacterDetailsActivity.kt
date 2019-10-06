@@ -35,11 +35,11 @@ class CharacterDetailsActivity : BaseActivity() {
 
         //viewModelFactory to pass the dataRepository to viewModel
         val viewModelFactory =
-            ViewModelFactory(DataRepository((application as BaseApplication).mainInterface))
+                ViewModelFactory(DataRepository((application as BaseApplication).mainInterface))
 
         //instantiating the viewModel
         viewModel =
-            ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
+                ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
 
         //instantiating the species recycler view
         setUpSpeciesRecycler()
@@ -49,7 +49,7 @@ class CharacterDetailsActivity : BaseActivity() {
 
         //subscribing to character details response data and showing data on the page
         viewModel.characterDetailsResponse.observe(this, Observer {
-            txtName.text = getString(R.string.character_name_is, it.name)
+            txtName.text = it.name
             txtBirthDate.text = getString(R.string.character_birth_date_is, it.birth_year)
             txtHeight.text = getString(R.string.character_height_is, it.height, getFeet(it.height), getInch(it.height))
         })

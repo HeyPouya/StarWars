@@ -21,5 +21,5 @@ interface RetrofitMainInterface {
     fun getSpeciesDetails(@Url url: String): Single<SpeciesDetailsResponse>
 
     @GET
-    fun getFilmsDetails(@Url url: String) : Single<FilmsDetailsResponse>
+    fun getFilmsDetails(@Url url: String): Single<FilmsDetailsResponse>
 }

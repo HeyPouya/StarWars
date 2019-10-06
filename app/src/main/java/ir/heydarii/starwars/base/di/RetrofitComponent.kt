@@ -6,7 +6,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [RetrofitModule::class])
-interface RetrofitComponenet {
+interface RetrofitComponent {
 
     fun getMainInterface(): RetrofitMainInterface
 }
