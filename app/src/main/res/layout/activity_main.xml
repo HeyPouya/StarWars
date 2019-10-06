@@ -21,7 +21,6 @@
 
 
     <LinearLayout
-        android:alpha="0.7"
         android:id="@+id/linearSearchName"
         android:layout_width="0dp"
         android:layout_height="48dp"
@@ -36,7 +35,7 @@
 
         <EditText
             android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
+            android:textColorHint="@color/transparentLightBlueColor"
             android:id="@+id/edtSearchName"
             android:layout_width="0dp"
             android:layout_height="48dp"

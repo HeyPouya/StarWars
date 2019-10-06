@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#061827</color>
     <color name="colorAccent">#D81B60</color>
     <color name="edtSearchStrokeColor">#2D6C73</color>
+    <color name="transparentLightBlueColor">#CC25647B</color>
+    <color name="transparentBlueColor">#BF0C2032</color>
 </resources>

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">StarWars</string>
-    <string name="please_enter_a_character_name">Please enter a character name</string>
+    <string name="please_enter_a_character_name">Character name</string>
     <string name="character_name_is">Name : %1s</string>
     <string name="character_birth_date_is">Birth Date : %1s</string>
     <string name="character_species_name_is">Species : %1s</string>
