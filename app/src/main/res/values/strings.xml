@@ -1,17 +1,18 @@
 <resources>
     <string name="app_name">StarWars</string>
     <string name="please_enter_a_character_name">Character name</string>
-    <string name="character_birth_date_is">Birth Date : %1s</string>
-    <string name="character_species_name_is">Species : %1s</string>
-    <string name="character_height_is">Height : %1s cm | %2s ft | %3s in</string>
-    <string name="planet_population_is">Population : %1s</string>
-    <string name="planet_language_is">Language : %1s</string>
-    <string name="character_planet_name_is">Planet : %1s</string>
+    <string name="character_birth_date_is">Birth Date: %1s</string>
+    <string name="character_species_name_is">Species: %1s</string>
+    <string name="character_height_is">Height: %1s cm | %2s ft | %3s in</string>
+    <string name="planet_population_is">Population: %1s</string>
+    <string name="planet_language_is">Language: %1s</string>
+    <string name="character_planet_name_is">Planet: %1s</string>
     <string name="species">Species :</string>
-    <string name="films">Films :</string>
+    <string name="films">Films:</string>
     <string name="film_title_is">Title : %1s</string>
-    <string name="film_release_date_is">Release date : %1s</string>
-    <string name="film_opening_is">Opening crawl : %1s</string>
+    <string name="film_release_date_is">Release date: %1s</string>
+    <string name="film_opening_is">Opening crawl: %1s</string>
     <string name="logo">logo</string>
     <string name="search">search</string>
+    <string name="back">back</string>
 </resources>

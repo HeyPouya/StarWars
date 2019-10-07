@@ -41,6 +41,10 @@ class CharacterDetailsActivity : BaseActivity() {
         viewModel =
                 ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
 
+        imgBack.setOnClickListener {
+            finish()
+        }
+
         //instantiating the species recycler view
         setUpSpeciesRecycler()
 
@@ -51,7 +55,12 @@ class CharacterDetailsActivity : BaseActivity() {
         viewModel.characterDetailsResponse.observe(this, Observer {
             txtName.text = it.name
             txtBirthDate.text = getString(R.string.character_birth_date_is, it.birth_year)
-            txtHeight.text = getString(R.string.character_height_is, it.height, getFeet(it.height), getInch(it.height))
+            txtHeight.text = getString(
+                    R.string.character_height_is,
+                    it.height,
+                    getFeet(it.height),
+                    getInch(it.height)
+            )
         })
 
         //subscribing to planet details response data and showing data on the page
@@ -73,7 +82,7 @@ class CharacterDetailsActivity : BaseActivity() {
         })
 
         // ask viewModel to fetch Details data
-        viewModel.getDetails(url)
+        viewModel.getDetails(url.orEmpty())
 
     }
 
