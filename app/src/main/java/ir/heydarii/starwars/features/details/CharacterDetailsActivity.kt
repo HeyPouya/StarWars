@@ -23,30 +23,29 @@ import kotlin.math.roundToInt
  */
 class CharacterDetailsActivity : BaseActivity() {
 
-    lateinit var viewModel: CharacterDetailsViewModel
+    private lateinit var viewModel: CharacterDetailsViewModel
     private val speciesList = ArrayList<SpeciesDetailsResponse>()
     private lateinit var speciesAdapter: SpeciesRecyclerAdapter
     private val filmsList = ArrayList<FilmsDetailsResponse>()
-    lateinit var filmsAdapter: FilmsRecyclerAdapter
+    private lateinit var filmsAdapter: FilmsRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_details)
 
-        //getting the url to details data
+        //getting the url to details data or throw an exception
         val url = intent.getStringExtra(Consts.URL)
+            ?: throw IllegalArgumentException("url must not be null")
 
         //viewModelFactory to pass the dataRepository to viewModel
         val viewModelFactory =
-                ViewModelFactory(DataRepository((application as BaseApplication).mainInterface))
+            ViewModelFactory(DataRepository((application as BaseApplication).mainInterface))
 
         //instantiating the viewModel
         viewModel =
-                ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
 
-        imgBack.setOnClickListener {
-            finish()
-        }
+        imgBack.setOnClickListener { finish() }
 
         //instantiating the species recycler view
         setUpSpeciesRecycler()
@@ -54,15 +53,27 @@ class CharacterDetailsActivity : BaseActivity() {
         //instantiating the films recycler view
         setUpFilmsRecycler()
 
+        //subscribe to liveData variables in viewModel
+        setUpObservers()
+
+        // ask viewModel to fetch Details data
+        viewModel.getDetails(url)
+
+    }
+
+    /**
+     * Subscribes to LiveData variables in the ViewModel
+     */
+    private fun setUpObservers() {
         //subscribing to character details response data and showing data on the page
         viewModel.characterDetailsResponse.observe(this, Observer {
             txtName.text = it.name
-            txtBirthDate.text =  it.birth_year
+            txtBirthDate.text = it.birth_year
             txtHeight.text = getString(
-                    R.string.character_height_is,
-                    it.height,
-                    getFeet(it.height),
-                    getInch(it.height)
+                R.string.character_height_is,
+                it.height,
+                getFeet(it.height),
+                getInch(it.height)
             )
         })
 
@@ -83,10 +94,6 @@ class CharacterDetailsActivity : BaseActivity() {
             filmsList.add(it)
             filmsAdapter.notifyItemInserted(filmsList.lastIndex)
         })
-
-        // ask viewModel to fetch Details data
-        viewModel.getDetails(url.orEmpty())
-
     }
 
     /**

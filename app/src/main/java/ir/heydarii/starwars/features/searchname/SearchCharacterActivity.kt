@@ -18,10 +18,13 @@ import ir.heydarii.starwars.features.details.CharacterDetailsActivity
 import ir.heydarii.starwars.pojo.CharacterSearchResult
 import kotlinx.android.synthetic.main.activity_main.*
 
+/**
+ * User can search any StarWars character name here
+ */
 class SearchCharacterActivity : BaseActivity() {
 
-    lateinit var viewModel: SearchCharacterViewModel
-    lateinit var adapter: SearchNameRecyclerAdapter
+    private lateinit var viewModel: SearchCharacterViewModel
+    private lateinit var adapter: SearchNameRecyclerAdapter
     private val list = ArrayList<CharacterSearchResult>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,11 +33,11 @@ class SearchCharacterActivity : BaseActivity() {
 
         //viewModelFactory to pass the dataRepository to viewModel
         val viewModelFactory =
-                ViewModelFactory(DataRepository((application as BaseApplication).mainInterface))
+            ViewModelFactory(DataRepository((application as BaseApplication).mainInterface))
 
         //instantiating the viewModel
         viewModel =
-                ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
 
         //instantiating the Recycler
         makeRecyclerAdapter()
@@ -66,9 +69,7 @@ class SearchCharacterActivity : BaseActivity() {
      * Instantiates the recyclerView and adds onItemClickListener to it
      */
     private fun makeRecyclerAdapter() {
-        adapter = SearchNameRecyclerAdapter(list) { url: String ->
-            onCharacterSelected(url)
-        }
+        adapter = SearchNameRecyclerAdapter(list) { url: String -> onCharacterSelected(url) }
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }

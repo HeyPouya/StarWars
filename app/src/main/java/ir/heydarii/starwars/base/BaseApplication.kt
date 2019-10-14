@@ -4,7 +4,7 @@ import android.app.Application
 import ir.heydarii.starwars.base.di.DaggerRetrofitComponent
 import ir.heydarii.starwars.retrofit.RetrofitMainInterface
 
-/*
+/**
  * BaseApplication class to provide some needed dependencies
  */
 

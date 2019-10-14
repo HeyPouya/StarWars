@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.films_item.view.*
 
 class FilmsRecyclerAdapter(private val list: List<FilmsDetailsResponse>) :
         RecyclerView.Adapter<FilmsRecyclerAdapter.SpeciesViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpeciesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.films_item, parent, false)
         return SpeciesViewHolder(view)
@@ -21,8 +22,8 @@ class FilmsRecyclerAdapter(private val list: List<FilmsDetailsResponse>) :
         holder.bind(list[position])
     }
 
-
     class SpeciesViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+
         fun bind(speciesDetailsResponse: FilmsDetailsResponse) {
             view.txtTitle.text =
                     view.context.getString(R.string.film_title_is, speciesDetailsResponse.title)

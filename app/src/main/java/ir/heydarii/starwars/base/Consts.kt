@@ -1,6 +1,6 @@
 package ir.heydarii.starwars.base
 
-/*
+/**
  * This class will be used to specify consts in the project
  */
 class Consts {

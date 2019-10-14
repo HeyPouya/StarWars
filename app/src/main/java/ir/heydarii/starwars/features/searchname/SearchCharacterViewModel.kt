@@ -17,13 +17,13 @@ class SearchCharacterViewModel(private val dataRepository: DataRepository) : Bas
      */
     fun searchCharacterName(characterName: String) {
         disposable.add(
-                dataRepository.searchCharacterName(characterName)
-                        .subscribe({
-                            searchNameData.value = it.results
-                        }, {
-                            Logger.d(it)
-                            //TODO : Some Error handling
-                        })
+            dataRepository.searchCharacterName(characterName)
+                .subscribe({
+                    searchNameData.value = it.results
+                }, {
+                    Logger.d(it)
+                    //TODO : Some Error handling
+                })
         )
     }
 

@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.species_item.view.*
 
 class SpeciesRecyclerAdapter(private val list: List<SpeciesDetailsResponse>) :
     RecyclerView.Adapter<SpeciesRecyclerAdapter.SpeciesViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpeciesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.species_item, parent, false)
         return SpeciesViewHolder(view)
@@ -21,10 +22,9 @@ class SpeciesRecyclerAdapter(private val list: List<SpeciesDetailsResponse>) :
         holder.bind(list[position])
     }
 
-
     class SpeciesViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(speciesDetailsResponse: SpeciesDetailsResponse) {
 
+        fun bind(speciesDetailsResponse: SpeciesDetailsResponse) {
             view.txtName.text = speciesDetailsResponse.name
             view.txtLanguage.text = speciesDetailsResponse.language
         }
