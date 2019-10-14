@@ -18,6 +18,9 @@ import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
 import kotlinx.android.synthetic.main.activity_character_details.*
 import kotlin.math.roundToInt
 
+/**
+ * Shows details of a character
+ */
 class CharacterDetailsActivity : BaseActivity() {
 
     lateinit var viewModel: CharacterDetailsViewModel

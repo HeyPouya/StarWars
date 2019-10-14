@@ -27,8 +27,9 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
      * films details urls
      */
     fun getDetails(url: String) {
-        disposable.add(repository.getCharacterDetails(url)
-                .flatMap {
+        disposable.add(
+            repository.getCharacterDetails(url)
+                .subscribe({
 
                     //emitting the characterDetails to activity
                     characterDetailsResponse.value = it
@@ -39,11 +40,9 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
                     //fetching the films details
                     getFilmsData(it.films)
 
-                    //flatMapping to get PlanetDetails
-                    repository.getPlanetDetails(it.homeworld)
-                }
-                .subscribe({
-                    planetDetailsResponse.value = it
+                    //fetching the planet details
+                    getPlanetDetails(it.homeworld)
+
                 }, {
                     Logger.d(it)
                 })
@@ -51,17 +50,32 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
     }
 
     /**
+     *Fetches details of the planet that the character comes from
+     */
+    private fun getPlanetDetails(homeWorld: String) {
+        disposable.add(
+            repository.getPlanetDetails(homeWorld)
+                .subscribe({
+                    planetDetailsResponse.value = it
+                }, {
+                    Logger.d(it)
+                })
+        )
+
+    }
+
+    /**
      * Fetches all films url data one by one
      */
     private fun getFilmsData(films: List<String>) {
-        films.forEach {
+        films.forEach { film ->
             disposable.add(
-                    repository.getFilmsDetails(it)
-                            .subscribe({
-                                filmsDetailsResponse.value = it
-                            }, {
-                                Logger.d(it)
-                            })
+                repository.getFilmsDetails(film)
+                    .subscribe({
+                        filmsDetailsResponse.value = it
+                    }, {
+                        Logger.d(it)
+                    })
             )
         }
     }
@@ -70,14 +84,14 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
      * Fetches all species url data one by one
      */
     private fun getSpeciesData(species: List<String>) {
-        species.forEach {
+        species.forEach { specie ->
             disposable.add(
-                    repository.getSpeciesDetails(it)
-                            .subscribe({
-                                speciesDetailsResponse.value = it
-                            }, {
-                                Logger.d(it)
-                            })
+                repository.getSpeciesDetails(specie)
+                    .subscribe({
+                        speciesDetailsResponse.value = it
+                    }, {
+                        Logger.d(it)
+                    })
             )
         }
     }
