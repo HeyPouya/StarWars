@@ -54,7 +54,7 @@ class CharacterDetailsActivity : BaseActivity() {
         //subscribing to character details response data and showing data on the page
         viewModel.characterDetailsResponse.observe(this, Observer {
             txtName.text = it.name
-            txtBirthDate.text = getString(R.string.character_birth_date_is, it.birth_year)
+            txtBirthDate.text =  it.birth_year
             txtHeight.text = getString(
                     R.string.character_height_is,
                     it.height,
