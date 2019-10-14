@@ -9,7 +9,7 @@ An Android application to learn latest technologies in android world!
 <img src="https://github.com/SirLordPouya/StarWars/blob/master/shots/appicon.png" width="250">
 </p>
 
-MusicManager is an Android application for those who want to get familiar with the latest technologies in Android World.
+StarWars is an Android application for those who want to get familiar with the latest technologies in Android World.
 I will keep this project up to date as long as I can.
 You can help to keep it up to date if you like ;)
 
@@ -19,12 +19,7 @@ You can help to keep it up to date if you like ;)
 
 ### How app works
 
-This application is designed to find singers and their top albums. I used the api from last.fm website (you can find the details in api section). There are 4 main pages :
-
-1.  Saved albums : shows albums saved by user. works also in offline mode
-2.  Search artist
-3.  Top albums : shows top albums of the selected artist.
-4.  Album details : shows details of the selected album
+This application is designed to find StarWars characters and see their detilas like heght, language, movies and...
 
 ### Technologies and Architecture
 
