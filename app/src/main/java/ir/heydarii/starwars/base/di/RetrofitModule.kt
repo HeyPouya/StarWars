@@ -13,10 +13,15 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
+/**
+ * Dagger module to provide Retrofit necessary objects
+ */
 @Module
 class RetrofitModule {
 
-
+    /**
+     * Provides and configs okHttp
+     */
     @Singleton
     @Provides
     fun provideOkHttp(interceptor: HttpLoggingInterceptor): OkHttpClient.Builder {
@@ -28,6 +33,9 @@ class RetrofitModule {
         return httpClient
     }
 
+    /**
+     * Provides and configs logger to see the logs in terminal
+     */
     @Singleton
     @Provides
     fun provedHttpLoggingInterceptor(): HttpLoggingInterceptor {
@@ -36,12 +44,18 @@ class RetrofitModule {
         return interceptor
     }
 
+    /**
+     * Provides GsonConvertor
+     */
     @Singleton
     @Provides
     fun provideGsonConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
     }
 
+    /**
+     * Provides the base url
+     */
     @Singleton
     @Provides
     @Named("baseURL")
@@ -49,12 +63,18 @@ class RetrofitModule {
         return Consts.BASE_URL
     }
 
+    /**
+     * Provides the retrofit interface
+     */
     @Singleton
     @Provides
     fun provideMainInterface(retrofit: Retrofit): RetrofitMainInterface {
         return retrofit.create(RetrofitMainInterface::class.java)
     }
 
+    /**
+     * Provides the retrofit object
+     */
     @Singleton
     @Provides
     fun provideRetrofit(

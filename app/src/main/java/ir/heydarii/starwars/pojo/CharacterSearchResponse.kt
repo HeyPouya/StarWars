@@ -1,5 +1,8 @@
 package ir.heydarii.starwars.pojo
 
+/**
+ * Response of character search by name
+ */
 data class CharacterSearchResponse(
         val count: Int,
         val next: Any,
@@ -7,6 +10,9 @@ data class CharacterSearchResponse(
         val results: List<CharacterSearchResult>
 )
 
+/**
+ * Details of a character
+ */
 data class CharacterSearchResult(
         val birth_year: String,
         val created: String,

@@ -1,5 +1,8 @@
 package ir.heydarii.starwars.pojo
 
+/**
+ * Specie details of a character
+ */
 class SpeciesDetailsResponse(
         val average_height: String,
         val average_lifespan: String,

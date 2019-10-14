@@ -1,5 +1,8 @@
 package ir.heydarii.starwars.pojo
 
+/**
+ * Response of planet details of a character
+ */
 data class PlanetDetailsResponse(
         val climate: String,
         val created: String,

@@ -8,6 +8,9 @@ import ir.heydarii.starwars.R
 import ir.heydarii.starwars.pojo.CharacterSearchResult
 import kotlinx.android.synthetic.main.character_search_item.view.*
 
+/**
+ * Displays a list of characters with the letters that user entered
+ */
 class SearchNameRecyclerAdapter(
     private val list: List<CharacterSearchResult>,
     private val clickListener: (String) -> Unit
@@ -27,6 +30,10 @@ class SearchNameRecyclerAdapter(
     }
 
     inner class SearchNameViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+
+        /**
+         * Sets TextViews and clickListeners
+         */
         fun bind(characterSearchResult: CharacterSearchResult) {
             view.txtName.text = characterSearchResult.name
             view.txtBirthDate.text = view.context.getString(

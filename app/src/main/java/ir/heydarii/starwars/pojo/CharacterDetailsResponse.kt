@@ -1,5 +1,8 @@
 package ir.heydarii.starwars.pojo
 
+/**
+ * Response of Character Details
+ */
 data class CharacterDetailsResponse(
         val birth_year: String,
         val created: String,

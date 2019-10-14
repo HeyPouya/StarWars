@@ -11,10 +11,10 @@ import ir.heydarii.starwars.base.BaseApplication
 import ir.heydarii.starwars.base.Consts
 import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.data.DataRepository
-import ir.heydarii.starwars.features.details.filmsadapter.FilmsRecyclerAdapter
+import ir.heydarii.starwars.features.details.filmsadapter.MoviesRecyclerAdapter
 import ir.heydarii.starwars.features.details.speciesadapter.SpeciesRecyclerAdapter
 import ir.heydarii.starwars.pojo.CharacterDetailsResponse
-import ir.heydarii.starwars.pojo.FilmsDetailsResponse
+import ir.heydarii.starwars.pojo.MoviesDetailsResponse
 import ir.heydarii.starwars.pojo.PlanetDetailsResponse
 import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
 import ir.heydarii.starwars.utils.CharacterResponseTypes.*
@@ -29,8 +29,8 @@ class CharacterDetailsActivity : BaseActivity() {
     private lateinit var viewModel: CharacterDetailsViewModel
     private val speciesList = ArrayList<SpeciesDetailsResponse>()
     private lateinit var speciesAdapter: SpeciesRecyclerAdapter
-    private val filmsList = ArrayList<FilmsDetailsResponse>()
-    private lateinit var filmsAdapter: FilmsRecyclerAdapter
+    private val filmsList = ArrayList<MoviesDetailsResponse>()
+    private lateinit var filmsAdapter: MoviesRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,12 +66,12 @@ class CharacterDetailsActivity : BaseActivity() {
                 CHARACTER_DETAILS -> showCharacterDetails(value as CharacterDetailsResponse)
                 PLANET_DETAILS -> showPlanetDetails(value as PlanetDetailsResponse)
                 SPECIE_DETAILS -> showSpecieDetails(value as SpeciesDetailsResponse)
-                MOVIE_DETAILS -> showMovieDetails(value as FilmsDetailsResponse)
+                MOVIE_DETAILS -> showMovieDetails(value as MoviesDetailsResponse)
             }
         })
     }
 
-    private fun showMovieDetails(moviesDetails: FilmsDetailsResponse) {
+    private fun showMovieDetails(moviesDetails: MoviesDetailsResponse) {
         filmsList.add(moviesDetails)
         filmsAdapter.notifyItemInserted(filmsList.lastIndex)
     }
@@ -97,7 +97,7 @@ class CharacterDetailsActivity : BaseActivity() {
     }
 
     private fun setUpFilmsRecycler() {
-        filmsAdapter = FilmsRecyclerAdapter(filmsList)
+        filmsAdapter = MoviesRecyclerAdapter(filmsList)
         recyclerFilms.adapter = filmsAdapter
         recyclerFilms.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }

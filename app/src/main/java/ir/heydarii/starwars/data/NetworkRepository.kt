@@ -36,7 +36,7 @@ class NetworkRepository(private val mainInterface: RetrofitMainInterface) {
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getFilmsDetails(url: String): Single<FilmsDetailsResponse> {
+    fun getFilmsDetails(url: String): Single<MoviesDetailsResponse> {
         return mainInterface.getFilmsDetails(url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

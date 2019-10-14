@@ -28,7 +28,7 @@ class DataRepository(mainInterface: RetrofitMainInterface) {
         return networkRepository.getSpeciesDetails(url)
     }
 
-    fun getFilmsDetails(url: String): Single<FilmsDetailsResponse> {
+    fun getFilmsDetails(url: String): Single<MoviesDetailsResponse> {
         return networkRepository.getFilmsDetails(url)
     }
 }

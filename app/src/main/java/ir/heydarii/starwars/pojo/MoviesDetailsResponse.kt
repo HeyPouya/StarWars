@@ -1,6 +1,9 @@
 package ir.heydarii.starwars.pojo
 
-data class FilmsDetailsResponse(
+/**
+ * Response of movie details of a character
+ */
+data class MoviesDetailsResponse(
         val characters: List<String>,
         val created: String,
         val director: String,

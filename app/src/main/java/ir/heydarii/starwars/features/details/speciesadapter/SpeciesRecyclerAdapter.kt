@@ -8,6 +8,9 @@ import ir.heydarii.starwars.R
 import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
 import kotlinx.android.synthetic.main.species_item.view.*
 
+/**
+ * Displays the species of a character in a recycler
+ */
 class SpeciesRecyclerAdapter(private val list: List<SpeciesDetailsResponse>) :
     RecyclerView.Adapter<SpeciesRecyclerAdapter.SpeciesViewHolder>() {
 
@@ -24,6 +27,9 @@ class SpeciesRecyclerAdapter(private val list: List<SpeciesDetailsResponse>) :
 
     class SpeciesViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
+        /**
+         * Sets TextViews
+         */
         fun bind(speciesDetailsResponse: SpeciesDetailsResponse) {
             view.txtName.text = speciesDetailsResponse.name
             view.txtLanguage.text = speciesDetailsResponse.language
