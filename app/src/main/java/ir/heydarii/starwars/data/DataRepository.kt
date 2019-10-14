@@ -4,8 +4,8 @@ import io.reactivex.Single
 import ir.heydarii.starwars.pojo.*
 import ir.heydarii.starwars.retrofit.RetrofitMainInterface
 
-/*
-    All Observables are gathered here to be used as the data layer
+/**
+ * All Observables are gathered here to be used as the data layer
  */
 class DataRepository(mainInterface: RetrofitMainInterface) {
 

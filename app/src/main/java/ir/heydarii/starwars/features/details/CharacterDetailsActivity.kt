@@ -13,8 +13,11 @@ import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.data.DataRepository
 import ir.heydarii.starwars.features.details.filmsadapter.FilmsRecyclerAdapter
 import ir.heydarii.starwars.features.details.speciesadapter.SpeciesRecyclerAdapter
+import ir.heydarii.starwars.pojo.CharacterDetailsResponse
 import ir.heydarii.starwars.pojo.FilmsDetailsResponse
+import ir.heydarii.starwars.pojo.PlanetDetailsResponse
 import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
+import ir.heydarii.starwars.utils.CharacterResponseTypes.*
 import kotlinx.android.synthetic.main.activity_character_details.*
 import kotlin.math.roundToInt
 
@@ -53,78 +56,63 @@ class CharacterDetailsActivity : BaseActivity() {
         //instantiating the films recycler view
         setUpFilmsRecycler()
 
-        //subscribe to liveData variables in viewModel
-        setUpObservers()
-
-        // ask viewModel to fetch Details data
-        viewModel.getDetails(url)
-
+        //Asks viewModel to fetch data and subscribes to its response
+        getDetails(url)
     }
 
-    /**
-     * Subscribes to LiveData variables in the ViewModel
-     */
-    private fun setUpObservers() {
-        //subscribing to character details response data and showing data on the page
-        viewModel.characterDetailsResponse.observe(this, Observer {
-            txtName.text = it.name
-            txtBirthDate.text = it.birth_year
-            txtHeight.text = getString(
-                R.string.character_height_is,
-                it.height,
-                getFeet(it.height),
-                getInch(it.height)
-            )
-        })
-
-        //subscribing to planet details response data and showing data on the page
-        viewModel.planetDetailsResponse.observe(this, Observer {
-            txtPlanet.text = getString(R.string.character_planet_name_is, it.name)
-            txtPopulation.text = getString(R.string.planet_population_is, it.population)
-        })
-
-        //subscribing to species details response data and showing data in its recyclerView
-        viewModel.speciesDetailsResponse.observe(this, Observer {
-            speciesList.add(it)
-            speciesAdapter.notifyItemInserted(speciesList.lastIndex)
-        })
-
-        //subscribing to films details response data and showing data in its recyclerView
-        viewModel.filmsDetailsResponse.observe(this, Observer {
-            filmsList.add(it)
-            filmsAdapter.notifyItemInserted(filmsList.lastIndex)
+    private fun getDetails(url: String) {
+        viewModel.getDetails(url).observe(this, Observer { (type, value) ->
+            when (type) {
+                CHARACTER_DETAILS -> showCharacterDetails(value as CharacterDetailsResponse)
+                PLANET_DETAILS -> showPlanetDetails(value as PlanetDetailsResponse)
+                SPECIE_DETAILS -> showSpecieDetails(value as SpeciesDetailsResponse)
+                MOVIE_DETAILS -> showMovieDetails(value as FilmsDetailsResponse)
+            }
         })
     }
 
-    /**
-     * Instantiating the Films recycler view
-     */
+    private fun showMovieDetails(moviesDetails: FilmsDetailsResponse) {
+        filmsList.add(moviesDetails)
+        filmsAdapter.notifyItemInserted(filmsList.lastIndex)
+    }
+
+    private fun showSpecieDetails(speciesDetails: SpeciesDetailsResponse) {
+        speciesList.add(speciesDetails)
+        speciesAdapter.notifyItemInserted(speciesList.lastIndex)
+    }
+
+    private fun showPlanetDetails(planetDetails: PlanetDetailsResponse) {
+        txtPlanet.text = getString(R.string.character_planet_name_is, planetDetails.name)
+        txtPopulation.text = getString(R.string.planet_population_is, planetDetails.population)
+
+    }
+
+    private fun showCharacterDetails(characterDetails: CharacterDetailsResponse) {
+        txtName.text = characterDetails.name
+        txtBirthDate.text = characterDetails.birth_year
+        txtHeight.text = getString(
+            R.string.character_height_is, characterDetails.height, getFeet(characterDetails.height),
+            getInch(characterDetails.height)
+        )
+    }
+
     private fun setUpFilmsRecycler() {
         filmsAdapter = FilmsRecyclerAdapter(filmsList)
         recyclerFilms.adapter = filmsAdapter
         recyclerFilms.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
 
-    /**
-     * Instantiating the Species recycler view
-     */
     private fun setUpSpeciesRecycler() {
         speciesAdapter = SpeciesRecyclerAdapter(speciesList)
         recyclerSpecies.adapter = speciesAdapter
         recyclerSpecies.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
     }
 
-    /**
-     * Converts the height value from (cm) to (inch)
-     */
     private fun getInch(height: String): String {
         val inch = height.toFloat() / 2.54
         return inch.roundToInt().toString()
     }
 
-    /**
-     * Converts the height value from (cm) to (feet)
-     */
     private fun getFeet(height: String): String {
         val feet = height.toFloat() / 30.48
         return feet.roundToInt().toString()

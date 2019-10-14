@@ -6,8 +6,8 @@ import io.reactivex.schedulers.Schedulers
 import ir.heydarii.starwars.pojo.*
 import ir.heydarii.starwars.retrofit.RetrofitMainInterface
 
-/*
-    All network Observables are configured here
+/**
+ * All network Observables are configured here
  */
 class NetworkRepository(private val mainInterface: RetrofitMainInterface) {
 
