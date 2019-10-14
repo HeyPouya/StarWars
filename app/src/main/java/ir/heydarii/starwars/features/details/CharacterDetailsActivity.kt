@@ -1,6 +1,7 @@
 package ir.heydarii.starwars.features.details
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +12,7 @@ import ir.heydarii.starwars.base.BaseApplication
 import ir.heydarii.starwars.base.Consts
 import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.data.DataRepository
-import ir.heydarii.starwars.features.details.filmsadapter.MoviesRecyclerAdapter
+import ir.heydarii.starwars.features.details.moviesadapter.MoviesRecyclerAdapter
 import ir.heydarii.starwars.features.details.speciesadapter.SpeciesRecyclerAdapter
 import ir.heydarii.starwars.pojo.CharacterDetailsResponse
 import ir.heydarii.starwars.pojo.MoviesDetailsResponse
@@ -72,16 +73,19 @@ class CharacterDetailsActivity : BaseActivity() {
     }
 
     private fun showMovieDetails(moviesDetails: MoviesDetailsResponse) {
+        progressMovie.visibility = View.GONE
         filmsList.add(moviesDetails)
         filmsAdapter.notifyItemInserted(filmsList.lastIndex)
     }
 
     private fun showSpecieDetails(speciesDetails: SpeciesDetailsResponse) {
+        progressDetails.visibility = View.GONE
         speciesList.add(speciesDetails)
         speciesAdapter.notifyItemInserted(speciesList.lastIndex)
     }
 
     private fun showPlanetDetails(planetDetails: PlanetDetailsResponse) {
+        progressDetails.visibility = View.GONE
         txtPlanet.text = getString(R.string.character_planet_name_is, planetDetails.name)
         txtPopulation.text = getString(R.string.planet_population_is, planetDetails.population)
 
