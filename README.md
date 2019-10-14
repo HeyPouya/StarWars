@@ -50,7 +50,7 @@ To see the application itself, Please download it from [google play](https://pla
 
 ## License
 
-MusicManager is released under the Apache License 2.0. See [LICENSE](https://raw.githubusercontent.com/SirLordPouya/MusicManager/master/LICENSE.md) for details.
+MusicManager is released under the Apache License 2.0. See [LICENSE](https://github.com/SirLordPouya/StarWars/blob/master/LICENSE) for details.
 
 Copyright (c) 2019 Pouya Heydari
 
