@@ -25,6 +25,9 @@ class MoviesRecyclerAdapter(private val list: List<MoviesDetailsResponse>) :
         holder.bind(list[position])
     }
 
+    /**
+     * ViewHolder of the RecyclerView
+     */
     class MoviesViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         /**

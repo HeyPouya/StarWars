@@ -25,6 +25,9 @@ class SpeciesRecyclerAdapter(private val list: List<SpeciesDetailsResponse>) :
         holder.bind(list[position])
     }
 
+    /**
+     * ViewHolder of the RecyclerView
+     */
     class SpeciesViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         /**

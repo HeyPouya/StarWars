@@ -29,6 +29,9 @@ class SearchNameRecyclerAdapter(
         holder.bind(list[position])
     }
 
+    /**
+     * ViewHolder of the RecyclerView
+     */
     inner class SearchNameViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         /**
