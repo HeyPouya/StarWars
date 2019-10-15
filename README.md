@@ -3,7 +3,7 @@ An Android application to learn latest technologies in android world!
 
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 [![Build Status](https://travis-ci.org/SirLordPouya/StarWars.svg?branch=master)](https://travis-ci.org/SirLordPouya/StarWars)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/67a4e8c3a6c240eea8bab676e83c1dbc)](https://www.codacy.com/app/SirLordPouya/MusicManager?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SirLordPouya/MusicManager&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a1be10d0e71443e4a4aeb6d893e32a8f)](https://www.codacy.com/manual/SirLordPouya/StarWars?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SirLordPouya/StarWars&amp;utm_campaign=Badge_Grade)
 
 <p align="center">
 <img src="https://github.com/SirLordPouya/StarWars/blob/master/shots/appicon.png" width="250">
