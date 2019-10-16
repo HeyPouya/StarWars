@@ -12,5 +12,8 @@ open class BaseViewModel : ViewModel() {
 
     protected val errorData = MutableLiveData<ErrorTypes>()
 
+    /**
+     * Provides errorData as a LiveData
+     */
     fun getErrors(): LiveData<ErrorTypes> = errorData
 }

@@ -10,7 +10,7 @@ import ir.heydarii.starwars.R
  */
 open class BaseActivity : AppCompatActivity() {
 
-    fun showError(view: View, errorMessage: String, handleErrors: () -> Unit) {
+   protected fun showError(view: View, errorMessage: String, handleErrors: () -> Unit) {
         Snackbar.make(view, errorMessage, Snackbar.LENGTH_INDEFINITE)
             .setAction(getString(R.string.retry)) { handleErrors() }.show()
     }
