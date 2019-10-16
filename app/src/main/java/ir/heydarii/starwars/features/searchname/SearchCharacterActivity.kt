@@ -39,6 +39,14 @@ class SearchCharacterActivity : BaseActivity() {
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
 
+        //subscribing to get errors in ViewModel
+        viewModel.getErrors().observe(this, Observer {
+            loading.visibility = View.GONE
+            showError(rootView, getString(R.string.some_errors_while_fetching_data)) {
+                searchCharacter(edtSearchName.text.toString())
+            }
+        })
+
         //instantiating the Recycler
         makeRecyclerAdapter()
 
@@ -59,7 +67,6 @@ class SearchCharacterActivity : BaseActivity() {
 
     private fun searchCharacter(characterName: String) {
         loading.visibility = View.VISIBLE
-
         viewModel.searchCharacterName(characterName)
             .observe(this, Observer {
                 loading.visibility = View.INVISIBLE

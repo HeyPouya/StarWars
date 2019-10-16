@@ -7,6 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.starwars.base.BaseViewModel
 import ir.heydarii.starwars.data.DataRepository
 import ir.heydarii.starwars.pojo.CharacterSearchResult
+import ir.heydarii.starwars.utils.ErrorTypes
 
 /**
  * ViewModel of the Search Name View
@@ -27,7 +28,7 @@ class SearchCharacterViewModel(private val dataRepository: DataRepository) : Bas
                     searchNameData.value = it.results
                 }, {
                     Logger.d(it)
-                    //TODO : Some Error handling
+                    errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
                 })
         )
         return searchNameData

@@ -7,6 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.starwars.base.BaseViewModel
 import ir.heydarii.starwars.data.DataRepository
 import ir.heydarii.starwars.utils.CharacterResponseTypes
+import ir.heydarii.starwars.utils.ErrorTypes
 
 /**
  * ViewModel of the Details View
@@ -44,7 +45,7 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
 
                 }, {
                     Logger.d(it)
-                    //TODO : Some Error handling
+                    errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
                 })
         )
         return detailsResponseData
@@ -57,7 +58,7 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
                     detailsResponseData.value = CharacterResponseTypes.PLANET_DETAILS to it
                 }, {
                     Logger.d(it)
-                    //TODO : Some Error handling
+                    errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
                 })
         )
 
@@ -71,7 +72,7 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
                         detailsResponseData.value = CharacterResponseTypes.MOVIE_DETAILS to it
                     }, {
                         Logger.d(it)
-                        //TODO : Some Error handling
+                        errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
                     })
             )
         }
@@ -85,7 +86,7 @@ class CharacterDetailsViewModel(private val repository: DataRepository) : BaseVi
                         detailsResponseData.value = CharacterResponseTypes.SPECIE_DETAILS to it
                     }, {
                         Logger.d(it)
-                        //TODO : Some Error handling
+                        errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
                     })
             )
         }

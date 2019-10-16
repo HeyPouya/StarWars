@@ -49,6 +49,13 @@ class CharacterDetailsActivity : BaseActivity() {
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
 
+        //starting the search by clicking on the image
+        viewModel.getErrors().observe(this, Observer {
+            showError(rootView,getString(R.string.some_errors_while_fetching_data)){
+                getDetails(url)
+            }
+        })
+
         imgBack.setOnClickListener { finish() }
 
         //instantiating the species recycler view

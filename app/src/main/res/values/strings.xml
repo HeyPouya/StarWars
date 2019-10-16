@@ -20,4 +20,6 @@
     <string name="planet">Planet:</string>
     <string name="population">Population:</string>
     <string name="language">Language:</string>
+    <string name="retry">Retry</string>
+    <string name="some_errors_while_fetching_data">Some errors while fetching data</string>
 </resources>
