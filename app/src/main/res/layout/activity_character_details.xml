@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rootView"
     android:background="@drawable/img_main_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,14 +51,14 @@
 
         <ProgressBar
             android:id="@+id/progressDetails"
-            android:layout_marginTop="32dp"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgLogo"/>
+            app:layout_constraintTop_toBottomOf="@id/imgLogo" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintDetails"
@@ -83,7 +83,6 @@
                 android:text="@string/birth_date"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/txtBirthDate"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -97,6 +96,7 @@
                 android:layout_marginEnd="8dp"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txtBirthDateHolder"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -110,7 +110,6 @@
                 android:text="@string/height"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/txtHeight"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtBirthDate" />
@@ -124,6 +123,7 @@
                 android:layout_marginEnd="8dp"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txtHeightHolder"
                 app:layout_constraintTop_toBottomOf="@id/txtBirthDate" />
@@ -137,7 +137,6 @@
                 android:text="@string/planet"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/txtPlanet"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtHeight" />
@@ -151,6 +150,7 @@
                 android:layout_marginEnd="8dp"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txtPlanetHolder"
                 app:layout_constraintTop_toBottomOf="@id/txtHeight" />
@@ -164,7 +164,6 @@
                 android:text="@string/population"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/txtPopulation"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtPlanet" />
@@ -178,6 +177,7 @@
                 android:layout_marginEnd="8dp"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/txtPopulationHolder"
                 app:layout_constraintTop_toBottomOf="@id/txtPlanet" />

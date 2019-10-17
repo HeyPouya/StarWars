@@ -12,7 +12,6 @@
         android:text="@string/species"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/txtName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,6 +24,7 @@
         android:layout_marginEnd="8dp"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtLanguage"
         app:layout_constraintStart_toEndOf="@id/txtSpeciesHolder"
         app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +38,6 @@
         android:text="@string/language"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/txtLanguage"
         app:layout_constraintStart_toStartOf="parent" />
@@ -52,6 +51,7 @@
         android:layout_marginEnd="8dp"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/txtLanguageHolder" />
