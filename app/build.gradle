@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+//apply plugin: 'com.google.firebase.firebase-perf'
+
 def lifecycle_version = "2.1.0"
 def retrofit_version = '2.6.2'
 
@@ -72,5 +74,10 @@ dependencies {
     //Logger
     implementation 'com.orhanobut:logger:2.2.0'
 
+    //Firebase libraries
+//    implementation 'com.google.firebase:firebase-analytics:17.2.0'
+//    implementation 'com.google.firebase:firebase-perf:19.0.0'
+
 
 }
+//apply plugin: 'com.google.gms.google-services'
