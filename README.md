@@ -37,7 +37,7 @@ Technologies that have been used in this projects are :
 
 ### API
 
-All the api's has provided by the last.fm website. for more information please visit their website.
+All the api's has provided by the swapi.co website. for more information please visit their website.
 
 ### Downloading application
 
