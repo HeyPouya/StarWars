@@ -8,9 +8,6 @@ apply plugin: 'kotlin-kapt'
 
 //apply plugin: 'com.google.firebase.firebase-perf'
 
-def lifecycle_version = "2.1.0"
-def retrofit_version = '2.6.2'
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -18,8 +15,8 @@ android {
         applicationId "ir.heydarii.starwars"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 100
-        versionName "1.0.0"
+        versionCode 101
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -58,8 +55,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
 
     //dagger2
-    implementation 'com.google.dagger:dagger:2.24'
-    kapt 'com.google.dagger:dagger-compiler:2.24'
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     //rxJava - rxAndroid
     implementation "io.reactivex.rxjava2:rxjava:2.2.13"

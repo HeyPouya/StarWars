@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StarWars</string>
+    <string name="app_name">StarWars Character Finder</string>
     <string name="please_enter_a_character_name">Character name</string>
     <string name="character_birth_date_is">Birth Date: %1s</string>
     <string name="character_species_name_is">Species: %1s</string>
