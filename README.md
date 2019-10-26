@@ -41,7 +41,7 @@ All the api's has provided by the swapi.co website. for more information please 
 
 ### Downloading application
 
-To see the application itself, Please download it from [google play](https://play.google.com/store/apps/details?id=ir.heydarii.musicmanager).
+To see the application itself, Please download it from [google play](https://play.google.com/store/apps/details?id=ir.heydarii.starwars).
 
 ## License
 
