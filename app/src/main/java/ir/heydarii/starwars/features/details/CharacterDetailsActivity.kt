@@ -2,6 +2,7 @@ package ir.heydarii.starwars.features.details
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,7 +52,7 @@ class CharacterDetailsActivity : BaseActivity() {
 
         //starting the search by clicking on the image
         viewModel.getErrors().observe(this, Observer {
-            showError(rootView,getString(R.string.some_errors_while_fetching_data)){
+            showError(rootView, getString(R.string.some_errors_while_fetching_data)) {
                 getDetails(url)
             }
         })
@@ -101,10 +102,13 @@ class CharacterDetailsActivity : BaseActivity() {
     private fun showCharacterDetails(characterDetails: CharacterDetailsResponse) {
         txtName.text = characterDetails.name
         txtBirthDate.text = characterDetails.birth_year
-        txtHeight.text = getString(
-            R.string.character_height_is, characterDetails.height, getFeet(characterDetails.height),
-            getInch(characterDetails.height)
-        )
+        if (characterDetails.height.isDigitsOnly())
+            txtHeight.text = getString(
+                R.string.character_height_is,
+                characterDetails.height,
+                getFeet(characterDetails.height),
+                getInch(characterDetails.height)
+            )
     }
 
     private fun setUpFilmsRecycler() {
