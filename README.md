@@ -19,7 +19,7 @@ You can help to keep it up to date if you like ;)
 
 ### How app works
 
-This application is designed to find StarWars characters and see their detilas like heght, language, movies and...
+This application is designed to find StarWars characters and see their detilas like height, language, movies and...
 
 ### Technologies and Architecture
 
