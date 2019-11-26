@@ -7,7 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.starwars.R
 
 /**
- * All activities are child of this class
+ * All fragments are child of this class
  */
 open class BaseFragment : Fragment() {
 

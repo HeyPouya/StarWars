@@ -5,6 +5,9 @@ import androidx.navigation.Navigation
 import ir.heydarii.starwars.R
 import ir.heydarii.starwars.base.BaseActivity
 
+/**
+ * MainActivity that behaves as a fragment holder
+ */
 class MainActivity : BaseActivity() {
 
     /**
