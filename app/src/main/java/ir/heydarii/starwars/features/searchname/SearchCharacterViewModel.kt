@@ -29,12 +29,17 @@ class SearchCharacterViewModel(private val dataRepository: DataRepository) : Bas
                         }, {
                             Logger.d(it)
                             errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
-                        })
-        )
+                        }))
     }
 
+    /**
+     * Returns immutable live data
+     */
     fun searchResultData(): LiveData<List<CharacterSearchResult>> = searchNameData
 
+    /**
+     * We make sure to clear everything up
+     */
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

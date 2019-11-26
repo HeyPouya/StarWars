@@ -13,7 +13,8 @@ import ir.heydarii.starwars.base.BaseApplication
 import ir.heydarii.starwars.base.BaseFragment
 import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.data.DataRepository
-import ir.heydarii.starwars.features.searchname.adapter.SearchNameDiffUtilsCallback
+import ir.heydarii.starwars.features.searchname.adapter.SearchCharacterDiffUtilsCallback
+import ir.heydarii.starwars.features.searchname.adapter.SearchNameRecyclerAdapter
 import ir.heydarii.starwars.pojo.CharacterSearchResult
 import kotlinx.android.synthetic.main.activity_character_search.*
 
@@ -84,7 +85,7 @@ class SearchCharacterFragment : BaseFragment() {
     }
 
     private fun makeRecyclerAdapter() {
-        adapter = SearchNameRecyclerAdapter(SearchNameDiffUtilsCallback()) { url: String -> onCharacterSelected(url) }
+        adapter = SearchNameRecyclerAdapter(SearchCharacterDiffUtilsCallback()) { url: String -> onCharacterSelected(url) }
         recycler.adapter = adapter
     }
 
@@ -95,5 +96,13 @@ class SearchCharacterFragment : BaseFragment() {
 
     private fun showResultsInRecycler(searchData: List<CharacterSearchResult>) {
         adapter.submitList(searchData)
+    }
+
+    /**
+     * Making sure that memory leak doesn't happen
+     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        recycler.adapter = null
     }
 }

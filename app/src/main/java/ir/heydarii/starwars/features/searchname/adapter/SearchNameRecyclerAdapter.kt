@@ -1,4 +1,4 @@
-package ir.heydarii.starwars.features.searchname
+package ir.heydarii.starwars.features.searchname.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,14 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.starwars.R
-import ir.heydarii.starwars.features.searchname.adapter.SearchNameDiffUtilsCallback
 import ir.heydarii.starwars.pojo.CharacterSearchResult
 import kotlinx.android.synthetic.main.character_search_item.view.*
 
 /**
  * Displays a list of characters with the letters that user entered
  */
-class SearchNameRecyclerAdapter(nameDiffUtils: SearchNameDiffUtilsCallback, private val clickListener: (String) -> Unit) :
+class SearchNameRecyclerAdapter(nameDiffUtils: SearchCharacterDiffUtilsCallback, private val clickListener: (String) -> Unit) :
         ListAdapter<CharacterSearchResult, SearchNameRecyclerAdapter.SearchNameViewHolder>(nameDiffUtils) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchNameViewHolder {
