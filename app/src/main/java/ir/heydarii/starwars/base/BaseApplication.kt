@@ -7,7 +7,6 @@ import ir.heydarii.starwars.retrofit.RetrofitMainInterface
 /**
  * BaseApplication class to provide some needed dependencies
  */
-
 class BaseApplication : Application() {
 
     //We provide retrofit interface here to have singleton and memory-leak-free retrofit instance

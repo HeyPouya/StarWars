@@ -6,7 +6,7 @@ import com.google.android.material.snackbar.Snackbar
 import ir.heydarii.starwars.R
 
 /**
- * This class will be used to configure all Activities if needed
+ * All activities are child of this class
  */
 open class BaseActivity : AppCompatActivity() {
 
