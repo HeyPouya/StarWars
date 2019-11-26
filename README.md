@@ -19,7 +19,7 @@ You can help to keep it up to date if you like ;)
 
 ### How app works
 
-This application is designed to find StarWars characters and see their detilas like heght, language, movies and...
+This application is designed to find StarWars characters and see their details like height, language, movies and...
 
 ### Technologies and Architecture
 
@@ -45,7 +45,7 @@ To see the application itself, Please download it from [google play](https://pla
 
 ## License
 
-MusicManager is released under the Apache License 2.0. See [LICENSE](https://github.com/SirLordPouya/StarWars/blob/master/LICENSE) for details.
+StarWars is released under the Apache License 2.0. See [LICENSE](https://github.com/SirLordPouya/StarWars/blob/master/LICENSE) for details.
 
 Copyright (c) 2019 Pouya Heydari
 
