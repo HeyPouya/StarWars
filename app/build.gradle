@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
 //apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
@@ -71,6 +73,11 @@ dependencies {
     //Logger
     implementation 'com.orhanobut:logger:2.2.0'
 
+    //Navigation Component
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+
     //Firebase libraries
 //    implementation 'com.google.firebase:firebase-analytics:17.2.1'
 //    implementation 'com.google.firebase:firebase-perf:19.0.1'
@@ -78,3 +85,4 @@ dependencies {
 
 }
 //apply plugin: 'com.google.gms.google-services'
+

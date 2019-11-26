@@ -1,16 +1,15 @@
 package ir.heydarii.starwars.features.details
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import ir.heydarii.starwars.R
-import ir.heydarii.starwars.base.BaseActivity
 import ir.heydarii.starwars.base.BaseApplication
-import ir.heydarii.starwars.base.Consts
+import ir.heydarii.starwars.base.BaseFragment
 import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.data.DataRepository
 import ir.heydarii.starwars.features.details.moviesadapter.MoviesRecyclerAdapter
@@ -26,7 +25,7 @@ import kotlin.math.roundToInt
 /**
  * Shows details of a character
  */
-class CharacterDetailsActivity : BaseActivity() {
+class CharacterDetailsFragment : BaseFragment() {
 
     private lateinit var viewModel: CharacterDetailsViewModel
     private val speciesList = ArrayList<SpeciesDetailsResponse>()
@@ -34,21 +33,31 @@ class CharacterDetailsActivity : BaseActivity() {
     private val filmsList = ArrayList<MoviesDetailsResponse>()
     private lateinit var filmsAdapter: MoviesRecyclerAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_character_details)
+    /**
+     * Inflating the layout
+     */
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.activity_character_details, container, false)
+    }
+
+    /**
+     * All codes are here
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //getting the url to details data or throw an exception
-        val url = intent.getStringExtra(Consts.URL)
-            ?: throw IllegalArgumentException("url must not be null")
+        val url = arguments?.let {
+            CharacterDetailsFragmentArgs.fromBundle(it).url
+        } ?: throw IllegalArgumentException("Url must nor be null")
 
         //viewModelFactory to pass the dataRepository to viewModel
         val viewModelFactory =
-            ViewModelFactory(DataRepository((application as BaseApplication).mainInterface))
+                ViewModelFactory(DataRepository((activity?.application as BaseApplication).mainInterface))
 
         //instantiating the viewModel
         viewModel =
-            ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
+                ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
 
         //starting the search by clicking on the image
         viewModel.getErrors().observe(this, Observer {
@@ -57,7 +66,7 @@ class CharacterDetailsActivity : BaseActivity() {
             }
         })
 
-        imgBack.setOnClickListener { finish() }
+        imgBack.setOnClickListener { activity?.onBackPressed() }
 
         //instantiating the species recycler view
         setUpSpeciesRecycler()
@@ -67,6 +76,7 @@ class CharacterDetailsActivity : BaseActivity() {
 
         //Asks viewModel to fetch data and subscribes to its response
         getDetails(url)
+
     }
 
     private fun getDetails(url: String) {
@@ -104,23 +114,21 @@ class CharacterDetailsActivity : BaseActivity() {
         txtBirthDate.text = characterDetails.birth_year
         if (characterDetails.height.isDigitsOnly())
             txtHeight.text = getString(
-                R.string.character_height_is,
-                characterDetails.height,
-                getFeet(characterDetails.height),
-                getInch(characterDetails.height)
+                    R.string.character_height_is,
+                    characterDetails.height,
+                    getFeet(characterDetails.height),
+                    getInch(characterDetails.height)
             )
     }
 
     private fun setUpFilmsRecycler() {
         filmsAdapter = MoviesRecyclerAdapter(filmsList)
         recyclerFilms.adapter = filmsAdapter
-        recyclerFilms.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
 
     private fun setUpSpeciesRecycler() {
         speciesAdapter = SpeciesRecyclerAdapter(speciesList)
         recyclerSpecies.adapter = speciesAdapter
-        recyclerSpecies.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
     }
 
     private fun getInch(height: String): String {

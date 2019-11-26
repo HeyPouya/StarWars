@@ -194,6 +194,8 @@
                 app:layout_constraintTop_toBottomOf="@id/txtPopulation" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:id="@+id/recyclerSpecies"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -233,6 +235,8 @@
             app:layout_constraintTop_toBottomOf="@id/constraintDetails" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:id="@+id/recyclerFilms"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_nav_controller"
+    app:startDestination="@id/searchCharacterFragment">
+
+    <fragment
+        android:id="@+id/characterDetailsFragment"
+        android:name="ir.heydarii.starwars.features.details.CharacterDetailsFragment"
+        android:label="CharacterDetailsFragment" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchCharacterFragment"
+        android:name="ir.heydarii.starwars.features.searchname.SearchCharacterFragment"
+        android:label="SearchCharacterFragment" >
+        <action
+            android:id="@+id/show_character_details_action"
+            app:destination="@id/characterDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popUpTo="@+id/searchCharacterFragment" />
+    </fragment>
+</navigation>

@@ -1,43 +1,45 @@
 package ir.heydarii.starwars.features.searchname
 
-import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.Navigation
 import ir.heydarii.starwars.R
-import ir.heydarii.starwars.base.BaseActivity
 import ir.heydarii.starwars.base.BaseApplication
-import ir.heydarii.starwars.base.Consts
+import ir.heydarii.starwars.base.BaseFragment
 import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.data.DataRepository
-import ir.heydarii.starwars.features.details.CharacterDetailsActivity
 import ir.heydarii.starwars.pojo.CharacterSearchResult
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_character_search.*
 
 /**
  * User can search any StarWars character name here
  */
-class SearchCharacterActivity : BaseActivity() {
+class SearchCharacterFragment : BaseFragment() {
 
     private lateinit var viewModel: SearchCharacterViewModel
     private lateinit var adapter: SearchNameRecyclerAdapter
     private val list = ArrayList<CharacterSearchResult>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.activity_character_search, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //viewModelFactory to pass the dataRepository to viewModel
         val viewModelFactory =
-            ViewModelFactory(DataRepository((application as BaseApplication).mainInterface))
+                ViewModelFactory(DataRepository((activity?.application as BaseApplication).mainInterface))
 
         //instantiating the viewModel
         viewModel =
-            ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
+                ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
 
         //subscribing to get errors in ViewModel
         viewModel.getErrors().observe(this, Observer {
@@ -68,22 +70,20 @@ class SearchCharacterActivity : BaseActivity() {
     private fun searchCharacter(characterName: String) {
         loading.visibility = View.VISIBLE
         viewModel.searchCharacterName(characterName)
-            .observe(this, Observer {
-                loading.visibility = View.INVISIBLE
-                showResultsInRecycler(it)
-            })
+                .observe(this, Observer {
+                    loading.visibility = View.INVISIBLE
+                    showResultsInRecycler(it)
+                })
     }
 
     private fun makeRecyclerAdapter() {
         adapter = SearchNameRecyclerAdapter(list) { url: String -> onCharacterSelected(url) }
         recycler.adapter = adapter
-        recycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
     }
 
     private fun onCharacterSelected(url: String) {
-        val intent = Intent(this, CharacterDetailsActivity::class.java)
-        intent.putExtra(Consts.URL, url)
-        startActivity(intent)
+        val action = SearchCharacterFragmentDirections.showCharacterDetailsAction(url)
+        Navigation.findNavController(rootView).navigate(action)
     }
 
     private fun showResultsInRecycler(searchData: List<CharacterSearchResult>) {
