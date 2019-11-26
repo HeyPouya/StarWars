@@ -34,6 +34,9 @@ Technologies that have been used in this projects are :
 *   RxJava
 *   Kotlin
 *   LiveData
+*   Single activity
+*   Navigation component
+*   Sage args
 
 ### API
 

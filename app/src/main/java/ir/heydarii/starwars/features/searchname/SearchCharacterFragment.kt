@@ -26,10 +26,16 @@ class SearchCharacterFragment : BaseFragment() {
     private val list = ArrayList<CharacterSearchResult>()
 
 
+    /**
+     * inflating the view
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.activity_character_search, container, false)
     }
 
+    /**
+     * All codes are here
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
