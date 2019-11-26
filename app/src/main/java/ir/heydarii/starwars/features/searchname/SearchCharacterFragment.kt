@@ -13,6 +13,7 @@ import ir.heydarii.starwars.base.BaseApplication
 import ir.heydarii.starwars.base.BaseFragment
 import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.data.DataRepository
+import ir.heydarii.starwars.features.searchname.adapter.SearchNameDiffUtilsCallback
 import ir.heydarii.starwars.pojo.CharacterSearchResult
 import kotlinx.android.synthetic.main.activity_character_search.*
 
@@ -23,7 +24,6 @@ class SearchCharacterFragment : BaseFragment() {
 
     private lateinit var viewModel: SearchCharacterViewModel
     private lateinit var adapter: SearchNameRecyclerAdapter
-    private val list = ArrayList<CharacterSearchResult>()
 
 
     /**
@@ -55,6 +55,11 @@ class SearchCharacterFragment : BaseFragment() {
             }
         })
 
+        viewModel.searchResultData().observe(this, Observer {
+            loading.visibility = View.INVISIBLE
+            showResultsInRecycler(it)
+        })
+
         //instantiating the Recycler
         makeRecyclerAdapter()
 
@@ -76,14 +81,10 @@ class SearchCharacterFragment : BaseFragment() {
     private fun searchCharacter(characterName: String) {
         loading.visibility = View.VISIBLE
         viewModel.searchCharacterName(characterName)
-                .observe(this, Observer {
-                    loading.visibility = View.INVISIBLE
-                    showResultsInRecycler(it)
-                })
     }
 
     private fun makeRecyclerAdapter() {
-        adapter = SearchNameRecyclerAdapter(list) { url: String -> onCharacterSelected(url) }
+        adapter = SearchNameRecyclerAdapter(SearchNameDiffUtilsCallback()) { url: String -> onCharacterSelected(url) }
         recycler.adapter = adapter
     }
 
@@ -93,8 +94,6 @@ class SearchCharacterFragment : BaseFragment() {
     }
 
     private fun showResultsInRecycler(searchData: List<CharacterSearchResult>) {
-        list.clear()
-        list.addAll(searchData)
-        adapter.notifyDataSetChanged()
+        adapter.submitList(searchData)
     }
 }

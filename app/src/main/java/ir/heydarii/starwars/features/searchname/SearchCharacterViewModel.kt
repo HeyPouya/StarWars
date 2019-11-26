@@ -21,18 +21,19 @@ class SearchCharacterViewModel(private val dataRepository: DataRepository) : Bas
     /**
      * Fetches Character data with the given name
      */
-    fun searchCharacterName(characterName: String): LiveData<List<CharacterSearchResult>> {
+    fun searchCharacterName(characterName: String) {
         disposable.add(
-            dataRepository.searchCharacterName(characterName)
-                .subscribe({
-                    searchNameData.value = it.results
-                }, {
-                    Logger.d(it)
-                    errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
-                })
+                dataRepository.searchCharacterName(characterName)
+                        .subscribe({
+                            searchNameData.value = it.results
+                        }, {
+                            Logger.d(it)
+                            errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
+                        })
         )
-        return searchNameData
     }
+
+    fun searchResultData(): LiveData<List<CharacterSearchResult>> = searchNameData
 
     override fun onCleared() {
         super.onCleared()
