@@ -61,11 +61,11 @@
             app:layout_constraintTop_toBottomOf="@id/imgLogo" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_marginTop="8dp"
             android:id="@+id/constraintDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/search_item_background"
@@ -194,13 +194,13 @@
                 app:layout_constraintTop_toBottomOf="@id/txtPopulation" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:id="@+id/recyclerSpecies"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -215,7 +215,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:text="@string/movies"
+            android:text= "@string/movies"
             android:textColor="@android:color/white"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -235,12 +235,13 @@
             app:layout_constraintTop_toBottomOf="@id/constraintDetails" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:id="@+id/recyclerFilms"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:nestedScrollingEnabled="false"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtFilms" />

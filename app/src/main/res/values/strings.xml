@@ -8,7 +8,7 @@
     <string name="planet_language_is">Language: %1s</string>
     <string name="character_planet_name_is">%1s</string>
     <string name="species">Species :</string>
-    <string name="movies">Movies:</string>
+    <string name="movies">Movies</string>
     <string name="movie_title_is">Title : %1s</string>
     <string name="movie_release_date_is">Release date: %1s</string>
     <string name="movie_opening_is">Opening crawl: %1s</string>
