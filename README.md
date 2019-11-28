@@ -37,6 +37,8 @@ Technologies that have been used in this projects are :
 *   Single activity
 *   Navigation component
 *   Sage args
+*   ListAdapter
+*   DiffUtils
 
 ### API
 
