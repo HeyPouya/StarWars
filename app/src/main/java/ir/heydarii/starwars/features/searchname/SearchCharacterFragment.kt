@@ -58,7 +58,7 @@ class SearchCharacterFragment : BaseFragment() {
 
         viewModel.searchResultData().observe(this, Observer {
             loading.visibility = View.INVISIBLE
-            showResultsInRecycler(it)
+            showResultsInRecycler(it.toMutableList())
         })
 
         //instantiating the Recycler
