@@ -16,7 +16,7 @@ import ir.heydarii.starwars.data.DataRepository
 import ir.heydarii.starwars.features.searchname.adapter.SearchCharacterDiffUtilsCallback
 import ir.heydarii.starwars.features.searchname.adapter.SearchNameRecyclerAdapter
 import ir.heydarii.starwars.pojo.CharacterSearchResult
-import kotlinx.android.synthetic.main.activity_character_search.*
+import kotlinx.android.synthetic.main.fragment_character_search.*
 
 /**
  * User can search any StarWars character name here
@@ -31,7 +31,7 @@ class SearchCharacterFragment : BaseFragment() {
      * inflating the view
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.activity_character_search, container, false)
+        return inflater.inflate(R.layout.fragment_character_search, container, false)
     }
 
     /**

@@ -19,7 +19,7 @@ import ir.heydarii.starwars.pojo.MoviesDetailsResponse
 import ir.heydarii.starwars.pojo.PlanetDetailsResponse
 import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
 import ir.heydarii.starwars.utils.CharacterResponseTypes.*
-import kotlinx.android.synthetic.main.activity_character_details.*
+import kotlinx.android.synthetic.main.fragment_character_details.*
 import kotlin.math.roundToInt
 
 /**
@@ -37,7 +37,7 @@ class CharacterDetailsFragment : BaseFragment() {
      * Inflating the layout
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.activity_character_details, container, false)
+        return inflater.inflate(R.layout.fragment_character_details, container, false)
     }
 
     /**
