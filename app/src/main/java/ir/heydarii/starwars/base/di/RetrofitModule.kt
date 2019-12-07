@@ -77,12 +77,8 @@ class RetrofitModule {
      */
     @Singleton
     @Provides
-    fun provideRetrofit(
-        converterFactory: GsonConverterFactory,
-        httpClient: OkHttpClient.Builder,
-        @Named("baseURL")
-        baseURL: String
-    ): Retrofit {
+    fun provideRetrofit(converterFactory: GsonConverterFactory, httpClient: OkHttpClient.Builder, @Named("baseURL")
+    baseURL: String): Retrofit {
         return RetrofitServiceGenerator(converterFactory, httpClient, baseURL).getClient()
     }
 
