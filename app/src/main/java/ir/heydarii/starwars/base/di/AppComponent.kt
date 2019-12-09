@@ -9,7 +9,7 @@ import javax.inject.Singleton
  */
 @Singleton
 @Component(modules = [RetrofitModule::class])
-interface RetrofitComponent {
+interface AppComponent {
 
     /**
      * Provides retrofit interface for the application
