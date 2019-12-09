@@ -8,7 +8,6 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import ir.heydarii.starwars.R
-import ir.heydarii.starwars.base.BaseApplication
 import ir.heydarii.starwars.base.BaseFragment
 import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.data.DataRepository
@@ -18,8 +17,10 @@ import ir.heydarii.starwars.pojo.CharacterDetailsResponse
 import ir.heydarii.starwars.pojo.MoviesDetailsResponse
 import ir.heydarii.starwars.pojo.PlanetDetailsResponse
 import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
+import ir.heydarii.starwars.retrofit.RetrofitMainInterface
 import ir.heydarii.starwars.utils.CharacterResponseTypes.*
 import kotlinx.android.synthetic.main.fragment_character_details.*
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 /**
@@ -33,10 +34,17 @@ class CharacterDetailsFragment : BaseFragment() {
     private val filmsList = ArrayList<MoviesDetailsResponse>()
     private lateinit var filmsAdapter: MoviesRecyclerAdapter
 
+    @Inject
+    lateinit var mainInterface: RetrofitMainInterface
+
     /**
      * Inflating the layout
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_character_details, container, false)
     }
 
@@ -53,11 +61,11 @@ class CharacterDetailsFragment : BaseFragment() {
 
         //viewModelFactory to pass the dataRepository to viewModel
         val viewModelFactory =
-                ViewModelFactory(DataRepository((activity?.application as BaseApplication).mainInterface))
+            ViewModelFactory(DataRepository(mainInterface))
 
         //instantiating the viewModel
         viewModel =
-                ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
 
         //starting the search by clicking on the image
         viewModel.getErrors().observe(this, Observer {
@@ -114,10 +122,10 @@ class CharacterDetailsFragment : BaseFragment() {
         txtBirthDate.text = characterDetails.birth_year
         if (characterDetails.height.isDigitsOnly())
             txtHeight.text = getString(
-                    R.string.character_height_is,
-                    characterDetails.height,
-                    getFeet(characterDetails.height),
-                    getInch(characterDetails.height)
+                R.string.character_height_is,
+                characterDetails.height,
+                getFeet(characterDetails.height),
+                getInch(characterDetails.height)
             )
     }
 

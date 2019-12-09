@@ -1,19 +1,16 @@
 package ir.heydarii.starwars.base
 
-import android.app.Application
-import ir.heydarii.starwars.base.di.DaggerRetrofitComponent
-import ir.heydarii.starwars.retrofit.RetrofitMainInterface
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
+import ir.heydarii.starwars.base.di.DaggerAppComponent
 
 /**
  * BaseApplication class to provide some needed dependencies
  */
-class BaseApplication : Application() {
+class BaseApplication : DaggerApplication() {
 
-    //We provide retrofit interface here to have singleton and memory-leak-free retrofit instance
-    lateinit var mainInterface: RetrofitMainInterface
 
-    override fun onCreate() {
-        super.onCreate()
-        mainInterface = DaggerRetrofitComponent.create().getMainInterface()
-    }
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
+        DaggerAppComponent.builder().application(this).build()
+
 }

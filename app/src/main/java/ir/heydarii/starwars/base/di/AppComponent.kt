@@ -1,18 +1,26 @@
 package ir.heydarii.starwars.base.di
 
+import android.app.Application
+import dagger.BindsInstance
 import dagger.Component
-import ir.heydarii.starwars.retrofit.RetrofitMainInterface
+import dagger.android.AndroidInjector
+import ir.heydarii.starwars.base.BaseApplication
 import javax.inject.Singleton
 
 /**
  * Dagger component to provide Retrofit interfaces
  */
 @Singleton
-@Component(modules = [RetrofitModule::class])
-interface AppComponent {
+@Component(modules = [RetrofitModule::class, ActivityBuilderModule::class])
+interface AppComponent : AndroidInjector<BaseApplication> {
 
-    /**
-     * Provides retrofit interface for the application
-     */
-    fun getMainInterface(): RetrofitMainInterface
+
+    @Component.Builder
+    interface Builder {
+
+        @BindsInstance
+        fun application(application: Application): Builder
+
+        fun build(): AppComponent
+    }
 }
