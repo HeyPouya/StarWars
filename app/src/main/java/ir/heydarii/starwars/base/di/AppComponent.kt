@@ -15,7 +15,9 @@ import javax.inject.Singleton
 @Component(modules = [RetrofitModule::class, AndroidSupportInjectionModule::class, ActivityBuilderModule::class, ViewModelFactoryModule::class])
 interface AppComponent : AndroidInjector<BaseApplication> {
 
-
+    /**
+     * Builder to let dagger bind the application instance
+     */
     @Component.Builder
     interface Builder {
 
