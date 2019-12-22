@@ -9,7 +9,6 @@ import ir.heydarii.starwars.base.di.DaggerAppComponent
  */
 class BaseApplication : DaggerApplication() {
 
-
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
         DaggerAppComponent.builder().application(this).build()
 

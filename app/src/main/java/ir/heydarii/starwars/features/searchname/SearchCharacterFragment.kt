@@ -9,14 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import ir.heydarii.starwars.R
-import ir.heydarii.starwars.base.BaseApplication
 import ir.heydarii.starwars.base.BaseFragment
 import ir.heydarii.starwars.base.ViewModelFactory
-import ir.heydarii.starwars.data.DataRepository
 import ir.heydarii.starwars.features.searchname.adapter.SearchCharacterDiffUtilsCallback
 import ir.heydarii.starwars.features.searchname.adapter.SearchNameRecyclerAdapter
 import ir.heydarii.starwars.pojo.CharacterSearchResult
-import ir.heydarii.starwars.retrofit.RetrofitMainInterface
 import kotlinx.android.synthetic.main.fragment_character_search.*
 import javax.inject.Inject
 
@@ -27,18 +24,13 @@ class SearchCharacterFragment : BaseFragment() {
 
     private lateinit var viewModel: SearchCharacterViewModel
     private lateinit var adapter: SearchNameRecyclerAdapter
-
     @Inject
-    lateinit var mainInterface: RetrofitMainInterface
+    lateinit var viewModelFactory: ViewModelFactory
 
     /**
      * inflating the view
      */
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_character_search, container, false)
     }
 
@@ -48,13 +40,9 @@ class SearchCharacterFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //viewModelFactory to pass the dataRepository to viewModel
-        val viewModelFactory =
-            ViewModelFactory(DataRepository(mainInterface))
-
         //instantiating the viewModel
         viewModel =
-            ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
+                ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
 
         //subscribing to get errors in ViewModel
         viewModel.getErrors().observe(this, Observer {

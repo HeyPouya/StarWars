@@ -1,16 +1,14 @@
-package ir.heydarii.starwars.data
+package ir.heydarii.starwars.repository
 
 import io.reactivex.Single
 import ir.heydarii.starwars.pojo.*
-import ir.heydarii.starwars.retrofit.RetrofitMainInterface
+import ir.heydarii.starwars.repository.network.NetworkRepository
+import javax.inject.Inject
 
 /**
  * All Observables are gathered here to be used as the data layer
  */
-class DataRepository(mainInterface: RetrofitMainInterface) {
-
-    private val networkRepository = NetworkRepository(mainInterface)
-
+class DataRepository @Inject constructor(private val networkRepository: NetworkRepository) {
 
     fun searchCharacterName(characterName: String): Single<CharacterSearchResponse> {
         return networkRepository.searchCharacterName(characterName)

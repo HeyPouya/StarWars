@@ -1,16 +1,15 @@
-package ir.heydarii.starwars.data
+package ir.heydarii.starwars.repository.network
 
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ir.heydarii.starwars.pojo.*
-import ir.heydarii.starwars.retrofit.RetrofitMainInterface
+import javax.inject.Inject
 
 /**
  * All network Observables are configured here
  */
-class NetworkRepository(private val mainInterface: RetrofitMainInterface) {
-
+class NetworkRepository @Inject constructor(private val mainInterface: RetrofitMainInterface) {
 
     fun searchCharacterName(characterName: String): Single<CharacterSearchResponse> {
         return mainInterface.searchCharacterName(characterName)

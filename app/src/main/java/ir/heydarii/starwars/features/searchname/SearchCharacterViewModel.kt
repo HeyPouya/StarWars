@@ -5,15 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.starwars.base.BaseViewModel
-import ir.heydarii.starwars.data.DataRepository
+import ir.heydarii.starwars.repository.DataRepository
 import ir.heydarii.starwars.pojo.CharacterSearchResult
 import ir.heydarii.starwars.utils.ErrorTypes
+import javax.inject.Inject
 
 /**
  * ViewModel of the Search Name View
  * Fetches data and passes them to the view
  */
-class SearchCharacterViewModel(private val dataRepository: DataRepository) : BaseViewModel() {
+class SearchCharacterViewModel @Inject constructor(val dataRepository: DataRepository) : BaseViewModel() {
 
     private val disposable = CompositeDisposable()
     private val searchNameData = MutableLiveData<List<CharacterSearchResult>>()

@@ -1,4 +1,4 @@
-package ir.heydarii.starwars.retrofit
+package ir.heydarii.starwars.repository.network
 
 import io.reactivex.Single
 import ir.heydarii.starwars.pojo.*
