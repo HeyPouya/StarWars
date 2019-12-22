@@ -3,6 +3,8 @@ package ir.heydarii.starwars.base;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -20,10 +22,11 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         this.creators = creators;
     }
 
+    @NotNull
     @Override
-    public <T extends ViewModel> T create(Class<T> modelClass) {
+    public <T extends ViewModel> T create(@NotNull Class<T> modelClass) {
         Provider<? extends ViewModel> creator = creators.get(modelClass);
-        if (creator == null) { // if the viewmodel has not been created
+        if (creator == null) { // if the view model has not been created
 
             // loop through the allowable keys (aka allowed classes with the @ViewModelKey)
             for (Map.Entry<Class<? extends ViewModel>, Provider<ViewModel>> entry : creators.entrySet()) {
@@ -45,7 +48,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         try {
             return (T) creator.get();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 }
