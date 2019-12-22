@@ -42,7 +42,7 @@ class SearchCharacterFragment : BaseFragment() {
 
         //instantiating the viewModel
         viewModel =
-                ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
 
         //subscribing to get errors in ViewModel
         viewModel.getErrors().observe(this, Observer {

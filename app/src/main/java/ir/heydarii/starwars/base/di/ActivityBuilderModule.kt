@@ -12,6 +12,6 @@ import ir.heydarii.starwars.features.searchname.di.SearchCharacterViewModelModul
 @Module
 abstract class ActivityBuilderModule {
 
-    @ContributesAndroidInjector(modules = [SearchCharacterViewModelModule::class])
+    @ContributesAndroidInjector(modules = [SearchCharacterViewModelModule::class, FragmentBuilderModule::class])
     abstract fun mainActivityContributer(): MainActivity
 }

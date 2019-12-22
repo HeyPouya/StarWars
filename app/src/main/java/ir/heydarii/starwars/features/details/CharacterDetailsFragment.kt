@@ -55,7 +55,7 @@ class CharacterDetailsFragment : BaseFragment() {
 
         //instantiating the viewModel
         viewModel =
-                ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
 
         //starting the search by clicking on the image
         viewModel.getErrors().observe(this, Observer {
@@ -112,10 +112,10 @@ class CharacterDetailsFragment : BaseFragment() {
         txtBirthDate.text = characterDetails.birth_year
         if (characterDetails.height.isDigitsOnly())
             txtHeight.text = getString(
-                    R.string.character_height_is,
-                    characterDetails.height,
-                    getFeet(characterDetails.height),
-                    getInch(characterDetails.height)
+                R.string.character_height_is,
+                characterDetails.height,
+                getFeet(characterDetails.height),
+                getInch(characterDetails.height)
             )
     }
 
