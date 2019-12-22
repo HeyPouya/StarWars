@@ -3,6 +3,7 @@ package ir.heydarii.starwars.base.di
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import ir.heydarii.starwars.features.MainActivity
+import ir.heydarii.starwars.features.details.di.CharacterDetailsViewModelModule
 import ir.heydarii.starwars.features.searchname.di.SearchCharacterViewModelModule
 
 
@@ -12,6 +13,6 @@ import ir.heydarii.starwars.features.searchname.di.SearchCharacterViewModelModul
 @Module
 abstract class ActivityBuilderModule {
 
-    @ContributesAndroidInjector(modules = [SearchCharacterViewModelModule::class, FragmentBuilderModule::class])
+    @ContributesAndroidInjector(modules = [FragmentBuilderModule::class, SearchCharacterViewModelModule::class, CharacterDetailsViewModelModule::class])
     abstract fun mainActivityContributer(): MainActivity
 }
