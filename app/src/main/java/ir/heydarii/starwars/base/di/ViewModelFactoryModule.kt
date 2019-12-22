@@ -12,6 +12,9 @@ import ir.heydarii.starwars.base.ViewModelFactory
 @Module
 abstract class ViewModelFactoryModule {
 
+    /**
+     * Provides ViewModelFactory
+     */
     @Binds
     abstract fun viewModelFactoryProvider(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
 }

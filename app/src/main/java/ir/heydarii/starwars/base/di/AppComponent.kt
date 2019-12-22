@@ -19,9 +19,15 @@ interface AppComponent : AndroidInjector<BaseApplication> {
     @Component.Builder
     interface Builder {
 
+        /**
+         * Binds application instance to this component for other modules
+         */
         @BindsInstance
         fun application(application: Application): Builder
 
+        /**
+         * Builds the component
+         */
         fun build(): AppComponent
     }
 }
