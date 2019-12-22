@@ -7,6 +7,9 @@ import dagger.multibindings.IntoMap
 import ir.heydarii.starwars.base.di.ViewModelKey
 import ir.heydarii.starwars.features.details.CharacterDetailsViewModel
 
+/**
+ * A module to let Dagger inject dependencies into CharacterDetailsViewModel
+ */
 @Module
 abstract class CharacterDetailsViewModelModule {
 

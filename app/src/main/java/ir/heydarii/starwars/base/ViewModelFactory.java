@@ -8,10 +8,10 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-
+/**
+ * Implemented in a way to let dagger manage making ViewModels
+ */
 public class ViewModelFactory implements ViewModelProvider.Factory {
-
-    private static final String TAG = "ViewModelProviderFactor";
 
     private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
 

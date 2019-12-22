@@ -7,6 +7,9 @@ import dagger.multibindings.IntoMap
 import ir.heydarii.starwars.base.di.ViewModelKey
 import ir.heydarii.starwars.features.searchname.SearchCharacterViewModel
 
+/**
+ * A module to let Dagger inject dependencies into SearchCharacterViewModel
+ */
 @Module
 abstract class SearchCharacterViewModelModule {
 
