@@ -8,10 +8,13 @@ import ir.heydarii.starwars.pojo.CharacterSearchResult
  */
 class SearchCharacterDiffUtilsCallback : DiffUtil.ItemCallback<CharacterSearchResult>() {
 
-    override fun areItemsTheSame(oldItem: CharacterSearchResult, newItem: CharacterSearchResult) = oldItem.name == newItem.name
+    override fun areItemsTheSame(
+        oldItem: CharacterSearchResult,
+        newItem: CharacterSearchResult
+    ) = oldItem.name == newItem.name
 
-    override fun areContentsTheSame(oldItem: CharacterSearchResult, newItem: CharacterSearchResult) = oldItem.name == newItem.name
-
+    override fun areContentsTheSame(
+        oldItem: CharacterSearchResult,
+        newItem: CharacterSearchResult
+    ) = oldItem.name == newItem.name
 }
-
-

@@ -37,6 +37,5 @@ class SpeciesRecyclerAdapter(private val list: List<SpeciesDetailsResponse>) :
             view.txtName.text = speciesDetailsResponse.name
             view.txtLanguage.text = speciesDetailsResponse.language
         }
-
     }
 }

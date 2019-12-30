@@ -45,6 +45,5 @@ class MoviesRecyclerAdapter(private val list: List<MoviesDetailsResponse>) :
                 speciesDetailsResponse.opening_crawl
             )
         }
-
     }
 }

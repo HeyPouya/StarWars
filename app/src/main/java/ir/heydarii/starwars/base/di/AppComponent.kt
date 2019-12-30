@@ -12,7 +12,12 @@ import javax.inject.Singleton
  * Dagger component to provide Retrofit interfaces
  */
 @Singleton
-@Component(modules = [RetrofitModule::class, AndroidSupportInjectionModule::class, ActivityBuilderModule::class, ViewModelFactoryModule::class])
+@Component(
+    modules = [RetrofitModule::class,
+        AndroidSupportInjectionModule::class,
+        ActivityBuilderModule::class,
+        ViewModelFactoryModule::class]
+)
 interface AppComponent : AndroidInjector<BaseApplication> {
 
     /**

@@ -3,7 +3,7 @@ package ir.heydarii.starwars.repository.network
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ir.heydarii.starwars.pojo.*
+import ir.heydarii.starwars.pojo.* // ktlint-disable no-wildcard-imports
 import javax.inject.Inject
 
 /**

@@ -16,10 +16,10 @@ import ir.heydarii.starwars.pojo.CharacterDetailsResponse
 import ir.heydarii.starwars.pojo.MoviesDetailsResponse
 import ir.heydarii.starwars.pojo.PlanetDetailsResponse
 import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
-import ir.heydarii.starwars.utils.CharacterResponseTypes.*
-import kotlinx.android.synthetic.main.fragment_character_details.*
+import ir.heydarii.starwars.utils.CharacterResponseTypes.* // ktlint-disable no-wildcard-imports
 import javax.inject.Inject
 import kotlin.math.roundToInt
+import kotlinx.android.synthetic.main.fragment_character_details.*
 
 /**
  * Shows details of a character
@@ -37,7 +37,11 @@ class CharacterDetailsFragment : BaseFragment() {
     /**
      * Inflating the layout
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_character_details, container, false)
     }
 
@@ -47,17 +51,16 @@ class CharacterDetailsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //getting the url to details data or throw an exception
+        // getting the url to details data or throw an exception
         val url = arguments?.let {
             CharacterDetailsFragmentArgs.fromBundle(it).url
         } ?: throw IllegalArgumentException("Url must nor be null")
 
-
-        //instantiating the viewModel
+        // instantiating the viewModel
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
 
-        //starting the search by clicking on the image
+        // starting the search by clicking on the image
         viewModel.getErrors().observe(this, Observer {
             showError(rootView, getString(R.string.some_errors_while_fetching_data)) {
                 getDetails(url)
@@ -66,15 +69,14 @@ class CharacterDetailsFragment : BaseFragment() {
 
         imgBack.setOnClickListener { activity?.onBackPressed() }
 
-        //instantiating the species recycler view
+        // instantiating the species recycler view
         setUpSpeciesRecycler()
 
-        //instantiating the films recycler view
+        // instantiating the films recycler view
         setUpFilmsRecycler()
 
-        //Asks viewModel to fetch data and subscribes to its response
+        // Asks viewModel to fetch data and subscribes to its response
         getDetails(url)
-
     }
 
     private fun getDetails(url: String) {
@@ -104,7 +106,6 @@ class CharacterDetailsFragment : BaseFragment() {
         progressDetails.visibility = View.GONE
         txtPlanet.text = getString(R.string.character_planet_name_is, planetDetails.name)
         txtPopulation.text = getString(R.string.planet_population_is, planetDetails.population)
-
     }
 
     private fun showCharacterDetails(characterDetails: CharacterDetailsResponse) {

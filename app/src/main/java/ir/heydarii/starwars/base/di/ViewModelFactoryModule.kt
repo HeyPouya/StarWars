@@ -5,7 +5,6 @@ import dagger.Binds
 import dagger.Module
 import ir.heydarii.starwars.base.ViewModelFactory
 
-
 /**
  * ViewModelFactoryModule to provide ViewModelFactory
  */
@@ -16,5 +15,7 @@ abstract class ViewModelFactoryModule {
      * Provides ViewModelFactory
      */
     @Binds
-    abstract fun viewModelFactoryProvider(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
+    abstract fun viewModelFactoryProvider(
+        viewModelFactory: ViewModelFactory
+    ): ViewModelProvider.Factory
 }

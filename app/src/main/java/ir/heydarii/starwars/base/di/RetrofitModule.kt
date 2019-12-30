@@ -4,14 +4,14 @@ import dagger.Module
 import dagger.Provides
 import ir.heydarii.starwars.base.Consts
 import ir.heydarii.starwars.repository.network.RetrofitMainInterface
+import java.util.concurrent.TimeUnit
+import javax.inject.Named
+import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
-import javax.inject.Named
-import javax.inject.Singleton
 
 /**
  * Dagger module to provide Retrofit necessary objects
@@ -77,8 +77,12 @@ class RetrofitModule {
      */
     @Singleton
     @Provides
-    fun provideRetrofit(converterFactory: GsonConverterFactory, httpClient: OkHttpClient.Builder, @Named("baseURL")
-    baseURL: String): Retrofit {
+    fun provideRetrofit(
+        converterFactory: GsonConverterFactory,
+        httpClient: OkHttpClient.Builder,
+        @Named("baseURL")
+            baseURL: String
+    ): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(baseURL)
                 .addConverterFactory(converterFactory)
@@ -86,5 +90,4 @@ class RetrofitModule {
                 .client(httpClient.build())
                 .build()
     }
-
 }

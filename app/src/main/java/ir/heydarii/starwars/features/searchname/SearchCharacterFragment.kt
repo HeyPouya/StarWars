@@ -14,8 +14,8 @@ import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.features.searchname.adapter.SearchCharacterDiffUtilsCallback
 import ir.heydarii.starwars.features.searchname.adapter.SearchNameRecyclerAdapter
 import ir.heydarii.starwars.pojo.CharacterSearchResult
-import kotlinx.android.synthetic.main.fragment_character_search.*
 import javax.inject.Inject
+import kotlinx.android.synthetic.main.fragment_character_search.*
 
 /**
  * User can search any StarWars character name here
@@ -30,7 +30,11 @@ class SearchCharacterFragment : BaseFragment() {
     /**
      * inflating the view
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_character_search, container, false)
     }
 
@@ -40,11 +44,11 @@ class SearchCharacterFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //instantiating the viewModel
+        // instantiating the viewModel
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
 
-        //subscribing to get errors in ViewModel
+        // subscribing to get errors in ViewModel
         viewModel.getErrors().observe(this, Observer {
             loading.visibility = View.GONE
             showError(rootView, getString(R.string.some_errors_while_fetching_data)) {
@@ -57,22 +61,21 @@ class SearchCharacterFragment : BaseFragment() {
             showResultsInRecycler(it.toMutableList())
         })
 
-        //instantiating the Recycler
+        // instantiating the Recycler
         makeRecyclerAdapter()
 
-        //starting the search by clicking on the image
+        // starting the search by clicking on the image
         imgSearch.setOnClickListener {
             searchCharacter(edtSearchName.text.toString())
         }
 
-        //starting the search by keyboard
+        // starting the search by keyboard
         edtSearchName.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 searchCharacter(edtSearchName.text.toString())
             }
             true
         }
-
     }
 
     private fun searchCharacter(characterName: String) {

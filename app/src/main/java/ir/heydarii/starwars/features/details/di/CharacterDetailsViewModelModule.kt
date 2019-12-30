@@ -17,5 +17,4 @@ abstract class CharacterDetailsViewModelModule {
     @IntoMap
     @ViewModelKey(CharacterDetailsViewModel::class)
     abstract fun bindViewModel(viewModel: CharacterDetailsViewModel): ViewModel
-
 }

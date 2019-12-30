@@ -15,6 +15,10 @@ abstract class ActivityBuilderModule {
     /**
      * Provides MainActivity and injects needed fragments into it
      */
-    @ContributesAndroidInjector(modules = [FragmentBuilderModule::class, SearchCharacterViewModelModule::class, CharacterDetailsViewModelModule::class])
+    @ContributesAndroidInjector(
+        modules = [FragmentBuilderModule::class,
+            SearchCharacterViewModelModule::class,
+            CharacterDetailsViewModelModule::class]
+    )
     abstract fun mainActivityContributer(): MainActivity
 }
