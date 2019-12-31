@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.starwars.base.BaseViewModel
-import ir.heydarii.starwars.pojo.CharacterSearchResult
+import ir.heydarii.starwars.features.searchname.response.SearchCharacterResource
+import ir.heydarii.starwars.pojo.CharacterSearchResponse
 import ir.heydarii.starwars.repository.DataRepository
-import ir.heydarii.starwars.utils.ErrorTypes
 import javax.inject.Inject
 
 /**
@@ -19,19 +19,20 @@ class SearchCharacterViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val disposable = CompositeDisposable()
-    private val searchNameData = MutableLiveData<List<CharacterSearchResult>>()
+    private val searchNameData = MutableLiveData<SearchCharacterResource<CharacterSearchResponse>>()
 
     /**
      * Fetches Character data with the given name
      */
     fun searchCharacterName(characterName: String) {
+        searchNameData.value = SearchCharacterResource.Loading()
         disposable.add(
             dataRepository.searchCharacterName(characterName)
                 .subscribe({
-                    searchNameData.value = it.results
+                    searchNameData.value = SearchCharacterResource.Success(it)
                 }, {
                     Logger.d(it)
-                    errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
+                    searchNameData.value = SearchCharacterResource.Error(it.message.orEmpty())
                 })
         )
     }
@@ -39,7 +40,8 @@ class SearchCharacterViewModel @Inject constructor(
     /**
      * Returns immutable live data
      */
-    fun searchResultData(): LiveData<List<CharacterSearchResult>> = searchNameData
+    fun searchResultData(): LiveData<SearchCharacterResource<CharacterSearchResponse>> =
+        searchNameData
 
     /**
      * We make sure to clear everything up

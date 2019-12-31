@@ -13,6 +13,7 @@ import ir.heydarii.starwars.base.BaseFragment
 import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.features.searchname.adapter.SearchCharacterDiffUtilsCallback
 import ir.heydarii.starwars.features.searchname.adapter.SearchNameRecyclerAdapter
+import ir.heydarii.starwars.features.searchname.response.SearchCharacterResource
 import ir.heydarii.starwars.pojo.CharacterSearchResult
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_character_search.*
@@ -48,17 +49,24 @@ class SearchCharacterFragment : BaseFragment() {
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
 
-        // subscribing to get errors in ViewModel
-        viewModel.getErrors().observe(this, Observer {
-            loading.visibility = View.GONE
-            showError(rootView, getString(R.string.some_errors_while_fetching_data)) {
-                searchCharacter(edtSearchName.text.toString())
-            }
-        })
-
         viewModel.searchResultData().observe(this, Observer {
-            loading.visibility = View.INVISIBLE
-            showResultsInRecycler(it.toMutableList())
+
+            when(it){
+                is SearchCharacterResource.Loading -> {
+                    loading.visibility = View.VISIBLE
+                }
+                is SearchCharacterResource.Error -> {
+                    loading.visibility = View.INVISIBLE
+                    showError(rootView, getString(R.string.some_errors_while_fetching_data)) {
+                        searchCharacter(edtSearchName.text.toString())
+                    }
+                }
+                is SearchCharacterResource.Success -> {
+                    loading.visibility = View.INVISIBLE
+                    showResultsInRecycler(it.data?.results?.toMutableList())
+                }
+            }
+
         })
 
         // instantiating the Recycler
@@ -79,7 +87,6 @@ class SearchCharacterFragment : BaseFragment() {
     }
 
     private fun searchCharacter(characterName: String) {
-        loading.visibility = View.VISIBLE
         viewModel.searchCharacterName(characterName)
     }
 
@@ -95,7 +102,7 @@ class SearchCharacterFragment : BaseFragment() {
         Navigation.findNavController(rootView).navigate(action)
     }
 
-    private fun showResultsInRecycler(searchData: List<CharacterSearchResult>) {
+    private fun showResultsInRecycler(searchData: List<CharacterSearchResult>?) {
         adapter.submitList(searchData)
     }
 
