@@ -1,7 +1,6 @@
 package ir.heydarii.starwars.repository
 
 import io.reactivex.Single
-import ir.heydarii.starwars.features.searchname.response.SearchCharacterResource
 import ir.heydarii.starwars.pojo.* // ktlint-disable no-wildcard-imports
 import ir.heydarii.starwars.repository.network.NetworkRepository
 import javax.inject.Inject

@@ -1,8 +1,7 @@
 package ir.heydarii.starwars.repository.network
 
 import io.reactivex.Single
-import ir.heydarii.starwars.features.searchname.response.SearchCharacterResource
-import ir.heydarii.starwars.pojo.*
+import ir.heydarii.starwars.pojo.* // ktlint-disable no-wildcard-imports
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.Url
