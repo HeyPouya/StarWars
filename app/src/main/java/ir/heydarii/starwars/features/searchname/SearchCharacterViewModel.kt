@@ -24,7 +24,7 @@ class SearchCharacterViewModel @Inject constructor(
     /**
      * Fetches Character data with the given name
      */
-    fun searchCharacterName(characterName: String) {
+    fun  searchCharacterName(characterName: String) {
         searchNameData.value = SearchCharacterResource.Loading()
         disposable.add(
             dataRepository.searchCharacterName(characterName)
