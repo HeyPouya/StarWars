@@ -2,7 +2,6 @@
 plugins{
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-android-extensions")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
@@ -25,6 +24,9 @@ android {
             isMinifyEnabled = true
             proguardFiles( getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 

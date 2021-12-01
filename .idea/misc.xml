@@ -10,6 +10,7 @@
       <map>
         <entry key="app/src/main/res/drawable/search_edittext_back.xml" value="0.2833333333333333" />
         <entry key="app/src/main/res/drawable/search_item_background.xml" value="0.2833333333333333" />
+        <entry key="app/src/main/res/layout/character_search_item.xml" value="0.23867753623188406" />
       </map>
     </option>
   </component>

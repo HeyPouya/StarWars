@@ -10,11 +10,11 @@ import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.starwars.R
 import ir.heydarii.starwars.base.BaseFragment
+import ir.heydarii.starwars.databinding.FragmentCharacterSearchBinding
 import ir.heydarii.starwars.features.searchname.adapter.SearchCharacterDiffUtilsCallback
 import ir.heydarii.starwars.features.searchname.adapter.SearchNameRecyclerAdapter
 import ir.heydarii.starwars.features.searchname.response.SearchCharacterResource
 import ir.heydarii.starwars.pojo.CharacterSearchResult
-import kotlinx.android.synthetic.main.fragment_character_search.*
 
 /**
  * User can search any StarWars character name here
@@ -24,6 +24,7 @@ class SearchCharacterFragment : BaseFragment() {
 
     private val viewModel by viewModels<SearchCharacterViewModel>()
     private lateinit var adapter: SearchNameRecyclerAdapter
+    private lateinit var binding: FragmentCharacterSearchBinding
 
     /**
      * inflating the view
@@ -32,8 +33,9 @@ class SearchCharacterFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_character_search, container, false)
+    ): View {
+        binding = FragmentCharacterSearchBinding.inflate(inflater)
+        return binding.root
     }
 
     /**
@@ -47,16 +49,16 @@ class SearchCharacterFragment : BaseFragment() {
 
             when (it) {
                 is SearchCharacterResource.Loading -> {
-                    loading.visibility = View.VISIBLE
+                    binding.loading.visibility = View.VISIBLE
                 }
                 is SearchCharacterResource.Error -> {
-                    loading.visibility = View.INVISIBLE
-                    showError(rootView, getString(R.string.some_errors_while_fetching_data)) {
-                        searchCharacter(edtSearchName.text.toString())
+                    binding.loading.visibility = View.INVISIBLE
+                    showError(requireView(), getString(R.string.some_errors_while_fetching_data)) {
+                        searchCharacter(binding.edtSearchName.text.toString())
                     }
                 }
                 is SearchCharacterResource.Success -> {
-                    loading.visibility = View.INVISIBLE
+                    binding.loading.visibility = View.INVISIBLE
                     showResultsInRecycler(it.data?.results?.toMutableList())
                 }
             }
@@ -66,14 +68,14 @@ class SearchCharacterFragment : BaseFragment() {
         makeRecyclerAdapter()
 
         // starting the search by clicking on the image
-        imgSearch.setOnClickListener {
-            searchCharacter(edtSearchName.text.toString())
+        binding.imgSearch.setOnClickListener {
+            searchCharacter(binding.edtSearchName.text.toString())
         }
 
         // starting the search by keyboard
-        edtSearchName.setOnEditorActionListener { _, actionId, _ ->
+        binding.edtSearchName.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                searchCharacter(edtSearchName.text.toString())
+                searchCharacter(binding.edtSearchName.text.toString())
             }
             true
         }
@@ -87,23 +89,15 @@ class SearchCharacterFragment : BaseFragment() {
         adapter = SearchNameRecyclerAdapter(SearchCharacterDiffUtilsCallback()) { url: String ->
             onCharacterSelected(url)
         }
-        recycler.adapter = adapter
+        binding.recycler.adapter = adapter
     }
 
     private fun onCharacterSelected(url: String) {
         val action = SearchCharacterFragmentDirections.showCharacterDetailsAction(url)
-        Navigation.findNavController(rootView).navigate(action)
+        Navigation.findNavController(requireView()).navigate(action)
     }
 
     private fun showResultsInRecycler(searchData: List<CharacterSearchResult>?) {
         adapter.submitList(searchData)
-    }
-
-    /**
-     * Making sure that memory leak doesn't happen
-     */
-    override fun onDestroyView() {
-        super.onDestroyView()
-        recycler.adapter = null
     }
 }

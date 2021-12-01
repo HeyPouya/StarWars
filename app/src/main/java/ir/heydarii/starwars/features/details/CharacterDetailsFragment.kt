@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.starwars.R
 import ir.heydarii.starwars.base.BaseFragment
+import ir.heydarii.starwars.databinding.FragmentCharacterDetailsBinding
 import ir.heydarii.starwars.features.details.moviesadapter.MoviesRecyclerAdapter
 import ir.heydarii.starwars.features.details.speciesadapter.SpeciesRecyclerAdapter
 import ir.heydarii.starwars.pojo.CharacterDetailsResponse
@@ -16,7 +17,6 @@ import ir.heydarii.starwars.pojo.MoviesDetailsResponse
 import ir.heydarii.starwars.pojo.PlanetDetailsResponse
 import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
 import ir.heydarii.starwars.utils.CharacterResponseTypes.*
-import kotlinx.android.synthetic.main.fragment_character_details.*
 import kotlin.math.roundToInt
 
 /**
@@ -30,6 +30,7 @@ class CharacterDetailsFragment : BaseFragment() {
     private val filmsList = ArrayList<MoviesDetailsResponse>()
     private lateinit var filmsAdapter: MoviesRecyclerAdapter
     private val viewModel by viewModels<CharacterDetailsViewModel>()
+    private lateinit var binding: FragmentCharacterDetailsBinding
 
     /**
      * Inflating the layout
@@ -38,8 +39,9 @@ class CharacterDetailsFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_character_details, container, false)
+    ): View {
+        binding = FragmentCharacterDetailsBinding.inflate(inflater)
+        return binding.root
     }
 
     /**
@@ -55,12 +57,12 @@ class CharacterDetailsFragment : BaseFragment() {
 
         // starting the search by clicking on the image
         viewModel.getErrors().observe(viewLifecycleOwner) {
-            showError(rootView, getString(R.string.some_errors_while_fetching_data)) {
+            showError(requireView(), getString(R.string.some_errors_while_fetching_data)) {
                 getDetails(url)
             }
         }
 
-        imgBack.setOnClickListener { activity?.onBackPressed() }
+        binding.imgBack.setOnClickListener { activity?.onBackPressed() }
 
         // instantiating the species recycler view
         setUpSpeciesRecycler()
@@ -85,28 +87,29 @@ class CharacterDetailsFragment : BaseFragment() {
     }
 
     private fun showMovieDetails(moviesDetails: MoviesDetailsResponse) {
-        progressMovie.visibility = View.GONE
+        binding.progressMovie.visibility = View.GONE
         filmsList.add(moviesDetails)
         filmsAdapter.notifyItemInserted(filmsList.lastIndex)
     }
 
     private fun showSpecieDetails(speciesDetails: SpeciesDetailsResponse) {
-        progressDetails.visibility = View.GONE
+        binding.progressDetails.visibility = View.GONE
         speciesList.add(speciesDetails)
         speciesAdapter.notifyItemInserted(speciesList.lastIndex)
     }
 
     private fun showPlanetDetails(planetDetails: PlanetDetailsResponse) {
-        progressDetails.visibility = View.GONE
-        txtPlanet.text = getString(R.string.character_planet_name_is, planetDetails.name)
-        txtPopulation.text = getString(R.string.planet_population_is, planetDetails.population)
+        binding.progressDetails.visibility = View.GONE
+        binding.txtPlanet.text = getString(R.string.character_planet_name_is, planetDetails.name)
+        binding.txtPopulation.text =
+            getString(R.string.planet_population_is, planetDetails.population)
     }
 
     private fun showCharacterDetails(characterDetails: CharacterDetailsResponse) {
-        txtName.text = characterDetails.name
-        txtBirthDate.text = characterDetails.birth_year
+        binding.txtName.text = characterDetails.name
+        binding.txtBirthDate.text = characterDetails.birth_year
         if (characterDetails.height.isDigitsOnly())
-            txtHeight.text = getString(
+            binding.txtHeight.text = getString(
                 R.string.character_height_is,
                 characterDetails.height,
                 getFeet(characterDetails.height),
@@ -116,12 +119,12 @@ class CharacterDetailsFragment : BaseFragment() {
 
     private fun setUpFilmsRecycler() {
         filmsAdapter = MoviesRecyclerAdapter(filmsList)
-        recyclerFilms.adapter = filmsAdapter
+        binding.recyclerFilms.adapter = filmsAdapter
     }
 
     private fun setUpSpeciesRecycler() {
         speciesAdapter = SpeciesRecyclerAdapter(speciesList)
-        recyclerSpecies.adapter = speciesAdapter
+        binding.recyclerSpecies.adapter = speciesAdapter
     }
 
     private fun getInch(height: String): String {
