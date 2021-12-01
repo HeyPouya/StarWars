@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.starwars.R
 import ir.heydarii.starwars.base.BaseFragment
-import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.features.searchname.adapter.SearchCharacterDiffUtilsCallback
 import ir.heydarii.starwars.features.searchname.adapter.SearchNameRecyclerAdapter
 import ir.heydarii.starwars.features.searchname.response.SearchCharacterResource
@@ -21,12 +22,11 @@ import kotlinx.android.synthetic.main.fragment_character_search.*
 /**
  * User can search any StarWars character name here
  */
+@AndroidEntryPoint
 class SearchCharacterFragment : BaseFragment() {
 
-    private lateinit var viewModel: SearchCharacterViewModel
+    private val viewModel by viewModels<SearchCharacterViewModel>()
     private lateinit var adapter: SearchNameRecyclerAdapter
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
     /**
      * inflating the view
@@ -45,11 +45,8 @@ class SearchCharacterFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // instantiating the viewModel
-        viewModel =
-            ViewModelProvider(this, viewModelFactory).get(SearchCharacterViewModel::class.java)
 
-        viewModel.searchResultData().observe(this, Observer {
+        viewModel.searchResultData().observe(viewLifecycleOwner) {
 
             when (it) {
                 is SearchCharacterResource.Loading -> {
@@ -66,7 +63,7 @@ class SearchCharacterFragment : BaseFragment() {
                     showResultsInRecycler(it.data?.results?.toMutableList())
                 }
             }
-        })
+        }
 
         // instantiating the Recycler
         makeRecyclerAdapter()

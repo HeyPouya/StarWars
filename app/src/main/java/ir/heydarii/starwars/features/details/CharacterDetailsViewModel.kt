@@ -3,6 +3,7 @@ package ir.heydarii.starwars.features.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.starwars.base.BaseViewModel
 import ir.heydarii.starwars.repository.DataRepository
@@ -14,8 +15,9 @@ import javax.inject.Inject
  * ViewModel of the Details View
  * Fetches data and passes them to the view
  */
+@HiltViewModel
 class CharacterDetailsViewModel @Inject constructor(
-    val repository: DataRepository
+    private val repository: DataRepository
 ) : BaseViewModel() {
 
     private val disposable = CompositeDisposable()

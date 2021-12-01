@@ -5,34 +5,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.isDigitsOnly
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.starwars.R
 import ir.heydarii.starwars.base.BaseFragment
-import ir.heydarii.starwars.base.ViewModelFactory
 import ir.heydarii.starwars.features.details.moviesadapter.MoviesRecyclerAdapter
 import ir.heydarii.starwars.features.details.speciesadapter.SpeciesRecyclerAdapter
 import ir.heydarii.starwars.pojo.CharacterDetailsResponse
 import ir.heydarii.starwars.pojo.MoviesDetailsResponse
 import ir.heydarii.starwars.pojo.PlanetDetailsResponse
 import ir.heydarii.starwars.pojo.SpeciesDetailsResponse
-import ir.heydarii.starwars.utils.CharacterResponseTypes.* // ktlint-disable no-wildcard-imports
-import javax.inject.Inject
-import kotlin.math.roundToInt
+import ir.heydarii.starwars.utils.CharacterResponseTypes.*
 import kotlinx.android.synthetic.main.fragment_character_details.*
+import kotlin.math.roundToInt
 
 /**
  * Shows details of a character
  */
+@AndroidEntryPoint
 class CharacterDetailsFragment : BaseFragment() {
 
-    private lateinit var viewModel: CharacterDetailsViewModel
     private val speciesList = ArrayList<SpeciesDetailsResponse>()
     private lateinit var speciesAdapter: SpeciesRecyclerAdapter
     private val filmsList = ArrayList<MoviesDetailsResponse>()
     private lateinit var filmsAdapter: MoviesRecyclerAdapter
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel by viewModels<CharacterDetailsViewModel>()
 
     /**
      * Inflating the layout
@@ -56,16 +54,12 @@ class CharacterDetailsFragment : BaseFragment() {
             CharacterDetailsFragmentArgs.fromBundle(it).url
         } ?: throw IllegalArgumentException("Url must nor be null")
 
-        // instantiating the viewModel
-        viewModel =
-            ViewModelProvider(this, viewModelFactory).get(CharacterDetailsViewModel::class.java)
-
         // starting the search by clicking on the image
-        viewModel.getErrors().observe(this, Observer {
+        viewModel.getErrors().observe(viewLifecycleOwner) {
             showError(rootView, getString(R.string.some_errors_while_fetching_data)) {
                 getDetails(url)
             }
-        })
+        }
 
         imgBack.setOnClickListener { activity?.onBackPressed() }
 

@@ -2,21 +2,24 @@ package ir.heydarii.starwars.base.di
 
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import ir.heydarii.starwars.base.Consts
 import ir.heydarii.starwars.repository.network.RetrofitMainInterface
-import java.util.concurrent.TimeUnit
-import javax.inject.Named
-import javax.inject.Singleton
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.inject.Named
+import javax.inject.Singleton
 
 /**
  * Dagger module to provide Retrofit necessary objects
  */
 @Module
+@InstallIn(SingletonComponent::class)
 class RetrofitModule {
 
     /**
@@ -81,13 +84,13 @@ class RetrofitModule {
         converterFactory: GsonConverterFactory,
         httpClient: OkHttpClient.Builder,
         @Named("baseURL")
-            baseURL: String
+        baseURL: String
     ): Retrofit {
         return Retrofit.Builder()
-                .baseUrl(baseURL)
-                .addConverterFactory(converterFactory)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(httpClient.build())
-                .build()
+            .baseUrl(baseURL)
+            .addConverterFactory(converterFactory)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .client(httpClient.build())
+            .build()
     }
 }
