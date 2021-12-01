@@ -4,16 +4,17 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ir.heydarii.starwars.base.Consts
 import ir.heydarii.starwars.repository.network.RetrofitMainInterface
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 import javax.inject.Singleton
+
+
+private const val BASE_URL = "https://swapi.dev/api/"
 
 /**
  * Dagger module to provide Retrofit necessary objects
@@ -52,18 +53,8 @@ class RetrofitModule {
      */
     @Singleton
     @Provides
-    fun provideGsonConverterFactory(): GsonConverterFactory {
-        return GsonConverterFactory.create()
-    }
-
-    /**
-     * Provides the base url
-     */
-    @Singleton
-    @Provides
-    @Named("baseURL")
-    fun provideBaseURL(): String {
-        return Consts.BASE_URL
+    fun provideMoshiConverterFactory(): MoshiConverterFactory {
+        return MoshiConverterFactory.create()
     }
 
     /**
@@ -81,13 +72,11 @@ class RetrofitModule {
     @Singleton
     @Provides
     fun provideRetrofit(
-        converterFactory: GsonConverterFactory,
+        converterFactory: MoshiConverterFactory,
         httpClient: OkHttpClient.Builder,
-        @Named("baseURL")
-        baseURL: String
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseURL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(converterFactory)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(httpClient.build())
