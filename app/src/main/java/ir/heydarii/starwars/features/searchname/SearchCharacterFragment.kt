@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.starwars.R
@@ -16,7 +14,6 @@ import ir.heydarii.starwars.features.searchname.adapter.SearchCharacterDiffUtils
 import ir.heydarii.starwars.features.searchname.adapter.SearchNameRecyclerAdapter
 import ir.heydarii.starwars.features.searchname.response.SearchCharacterResource
 import ir.heydarii.starwars.pojo.CharacterSearchResult
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.fragment_character_search.*
 
 /**

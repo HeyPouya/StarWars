@@ -15,9 +15,8 @@ import kotlinx.android.synthetic.main.character_search_item.view.*
 class SearchNameRecyclerAdapter(
     nameDiffUtils: SearchCharacterDiffUtilsCallback,
     private val clickListener: (String) -> Unit
-) :
-    ListAdapter<CharacterSearchResult,
-            SearchNameRecyclerAdapter.SearchNameViewHolder>(nameDiffUtils) {
+) : ListAdapter<CharacterSearchResult,
+        SearchNameRecyclerAdapter.SearchNameViewHolder>(nameDiffUtils) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchNameViewHolder {
         val view = LayoutInflater.from(parent.context)

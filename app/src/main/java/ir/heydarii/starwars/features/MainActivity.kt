@@ -1,15 +1,15 @@
 package ir.heydarii.starwars.features
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.starwars.R
-import ir.heydarii.starwars.base.BaseActivity
 
 /**
  * MainActivity that behaves as a fragment holder
  */
 @AndroidEntryPoint
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
     /**
      * setting the content view

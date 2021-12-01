@@ -1,7 +1,6 @@
 package ir.heydarii.starwars.repository.network
 
-import io.reactivex.Single
-import ir.heydarii.starwars.pojo.* // ktlint-disable no-wildcard-imports
+import ir.heydarii.starwars.pojo.*
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.Url
