@@ -12,17 +12,17 @@ import retrofit2.http.Url
 interface RetrofitMainInterface {
 
     @GET("people/?")
-    fun searchCharacterName(@Query("search") characterName: String): Single<CharacterSearchResponse>
+    suspend fun searchCharacterName(@Query("search") characterName: String): CharacterSearchResponse
 
     @GET
-    fun getCharacterDetail(@Url url: String): Single<CharacterDetailsResponse>
+    suspend fun getCharacterDetail(@Url url: String): CharacterDetailsResponse
 
     @GET
-    fun getPlanetDetails(@Url url: String): Single<PlanetDetailsResponse>
+    suspend fun getPlanetDetails(@Url url: String): PlanetDetailsResponse
 
     @GET
-    fun getSpeciesDetails(@Url url: String): Single<SpeciesDetailsResponse>
+    suspend fun getSpeciesDetails(@Url url: String): SpeciesDetailsResponse
 
     @GET
-    fun getFilmsDetails(@Url url: String): Single<MoviesDetailsResponse>
+    suspend fun getFilmsDetails(@Url url: String): MoviesDetailsResponse
 }

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.starwars.R
 import ir.heydarii.starwars.base.BaseFragment
@@ -74,14 +73,15 @@ class CharacterDetailsFragment : BaseFragment() {
     }
 
     private fun getDetails(url: String) {
-        viewModel.getDetails(url).observe(this, Observer { (type, value) ->
+        viewModel.getDetails(url)
+        viewModel.detailsResponseData.observe(viewLifecycleOwner) { (type, value) ->
             when (type) {
                 CHARACTER_DETAILS -> showCharacterDetails(value as CharacterDetailsResponse)
                 PLANET_DETAILS -> showPlanetDetails(value as PlanetDetailsResponse)
                 SPECIE_DETAILS -> showSpecieDetails(value as SpeciesDetailsResponse)
                 MOVIE_DETAILS -> showMovieDetails(value as MoviesDetailsResponse)
             }
-        })
+        }
     }
 
     private fun showMovieDetails(moviesDetails: MoviesDetailsResponse) {

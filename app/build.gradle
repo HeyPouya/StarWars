@@ -36,11 +36,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //kotlin
+    // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
-    //support libraries
+    // Support libraries
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
@@ -50,9 +51,8 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    //retrofit and gson
+    // Retrofit and Moshi
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
     kapt("com.squareup.moshi:moshi-kotlin-codegen:1.12.0")
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3'
@@ -61,20 +61,10 @@ dependencies {
     implementation 'com.google.dagger:hilt-android:2.40.3'
     kapt 'com.google.dagger:hilt-compiler:2.40.3'
 
-    //rxJava - rxAndroid
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-
-    //picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
-
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
-    //Logger
-    implementation 'com.orhanobut:logger:2.2.0'
-
-    //Navigation Component
+    // Navigation Component
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 

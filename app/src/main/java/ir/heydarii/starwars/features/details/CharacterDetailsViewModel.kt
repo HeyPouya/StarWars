@@ -2,13 +2,13 @@ package ir.heydarii.starwars.features.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.orhanobut.logger.Logger
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.disposables.CompositeDisposable
 import ir.heydarii.starwars.base.BaseViewModel
 import ir.heydarii.starwars.repository.DataRepository
 import ir.heydarii.starwars.utils.CharacterResponseTypes
 import ir.heydarii.starwars.utils.ErrorTypes
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -20,8 +20,8 @@ class CharacterDetailsViewModel @Inject constructor(
     private val repository: DataRepository
 ) : BaseViewModel() {
 
-    private val disposable = CompositeDisposable()
-    private val detailsResponseData = MutableLiveData<Pair<CharacterResponseTypes, Any>>()
+    private val _detailsResponseData = MutableLiveData<Pair<CharacterResponseTypes, Any>>()
+    val detailsResponseData: LiveData<Pair<CharacterResponseTypes, Any>> = _detailsResponseData
 
     /**
      * Fetches details about character
@@ -31,72 +31,44 @@ class CharacterDetailsViewModel @Inject constructor(
      * species details url
      * films details urls
      */
-    fun getDetails(url: String): LiveData<Pair<CharacterResponseTypes, Any>> {
-        disposable.add(
-            repository.getCharacterDetails(url)
-                .subscribe({
+    fun getDetails(url: String) = viewModelScope.runCatching {
+        launch {
+            val data = repository.getCharacterDetails(url)
+            _detailsResponseData.postValue(CharacterResponseTypes.CHARACTER_DETAILS to data)
 
-                    // emitting the characterDetails to activity
-                    detailsResponseData.value = CharacterResponseTypes.CHARACTER_DETAILS to it
+            // fetching the species details
+            getSpeciesData(data.species)
 
-                    // fetching the species details
-                    getSpeciesData(it.species)
+            // fetching the films details
+            getFilmsData(data.films)
 
-                    // fetching the films details
-                    getFilmsData(it.films)
+            // fetching the planet details
+            getPlanetDetails(data.homeworld)
 
-                    // fetching the planet details
-                    getPlanetDetails(it.homeworld)
-                }, {
-                    Logger.d(it)
-                    errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
-                })
-        )
-        return detailsResponseData
+        }
+    }.onFailure {
+        it.printStackTrace()
+        errorData.postValue(ErrorTypes.ERROR_RECEIVING_DATA)
+
     }
 
-    private fun getPlanetDetails(homeWorld: String) {
-        disposable.add(
-            repository.getPlanetDetails(homeWorld)
-                .subscribe({
-                    detailsResponseData.value = CharacterResponseTypes.PLANET_DETAILS to it
-                }, {
-                    Logger.d(it)
-                    errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
-                })
-        )
+    private fun getPlanetDetails(homeWorld: String) = viewModelScope.launch {
+        val data = repository.getPlanetDetails(homeWorld)
+        _detailsResponseData.postValue(CharacterResponseTypes.PLANET_DETAILS to data)
     }
 
-    private fun getFilmsData(films: List<String>) {
+    private fun getFilmsData(films: List<String>) = viewModelScope.launch {
         films.forEach { film ->
-            disposable.add(
-                repository.getFilmsDetails(film)
-                    .subscribe({
-                        detailsResponseData.value = CharacterResponseTypes.MOVIE_DETAILS to it
-                    }, {
-                        Logger.d(it)
-                        errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
-                    })
-            )
+            val data = repository.getFilmsDetails(film)
+            _detailsResponseData.postValue(CharacterResponseTypes.MOVIE_DETAILS to data)
+
         }
     }
 
-    private fun getSpeciesData(species: List<String>) {
+    private fun getSpeciesData(species: List<String>) = viewModelScope.launch {
         species.forEach { specie ->
-            disposable.add(
-                repository.getSpeciesDetails(specie)
-                    .subscribe({
-                        detailsResponseData.value = CharacterResponseTypes.SPECIE_DETAILS to it
-                    }, {
-                        Logger.d(it)
-                        errorData.value = ErrorTypes.ERROR_RECEIVING_DATA
-                    })
-            )
+            val data = repository.getSpeciesDetails(specie)
+            _detailsResponseData.postValue(CharacterResponseTypes.SPECIE_DETAILS to data)
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        disposable.clear()
     }
 }
