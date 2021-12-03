@@ -31,25 +31,27 @@ class CharacterDetailsViewModel @Inject constructor(
      * species details url
      * films details urls
      */
-    fun getDetails(url: String) = viewModelScope.runCatching {
-        launch {
-            val data = repository.getCharacterDetails(url)
-            _detailsResponseData.postValue(CharacterResponseTypes.CHARACTER_DETAILS to data)
+    fun getDetails(url: String) {
+        viewModelScope.runCatching {
+            launch {
+                val data = repository.getCharacterDetails(url)
+                _detailsResponseData.postValue(CharacterResponseTypes.CHARACTER_DETAILS to data)
 
-            // fetching the species details
-            getSpeciesData(data.species)
+                // fetching the species details
+                getSpeciesData(data.species)
 
-            // fetching the films details
-            getFilmsData(data.films)
+                // fetching the films details
+                getFilmsData(data.films)
 
-            // fetching the planet details
-            getPlanetDetails(data.homeworld)
+                // fetching the planet details
+                getPlanetDetails(data.homeworld)
+
+            }
+        }.onFailure {
+            it.printStackTrace()
+            errorData.postValue(ErrorTypes.ERROR_RECEIVING_DATA)
 
         }
-    }.onFailure {
-        it.printStackTrace()
-        errorData.postValue(ErrorTypes.ERROR_RECEIVING_DATA)
-
     }
 
     private fun getPlanetDetails(homeWorld: String) = viewModelScope.launch {

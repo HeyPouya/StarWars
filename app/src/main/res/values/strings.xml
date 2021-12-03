@@ -14,6 +14,7 @@
     <string name="movie_opening_is">Opening crawl: %1s</string>
     <string name="logo">logo</string>
     <string name="search">search</string>
+    <string name="enter_a_character_name">Enter a character name</string>
     <string name="back">back</string>
     <string name="birth_date">Birth Date:</string>
     <string name="height">Height:</string>
@@ -22,4 +23,5 @@
     <string name="language">Language:</string>
     <string name="retry">Retry</string>
     <string name="some_errors_while_fetching_data">Some errors while fetching data</string>
+    <string name="title_activity_main2">MainActivity2</string>
 </resources>

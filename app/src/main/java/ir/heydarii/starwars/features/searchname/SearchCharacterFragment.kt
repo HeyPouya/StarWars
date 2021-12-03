@@ -4,17 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.starwars.R
 import ir.heydarii.starwars.base.BaseFragment
-import ir.heydarii.starwars.databinding.FragmentCharacterSearchBinding
-import ir.heydarii.starwars.features.searchname.adapter.SearchCharacterDiffUtilsCallback
-import ir.heydarii.starwars.features.searchname.adapter.SearchNameRecyclerAdapter
-import ir.heydarii.starwars.features.searchname.response.SearchCharacterResource
+import ir.heydarii.starwars.features.searchname.compose.SearchCharacterCompose
 import ir.heydarii.starwars.pojo.CharacterSearchResult
+import ir.heydarii.starwars.pojo.SearchCharacterResource
+import ir.heydarii.starwars.ui.theme.StarWarsTheme
 
 /**
  * User can search any StarWars character name here
@@ -23,81 +26,51 @@ import ir.heydarii.starwars.pojo.CharacterSearchResult
 class SearchCharacterFragment : BaseFragment() {
 
     private val viewModel by viewModels<SearchCharacterViewModel>()
-    private lateinit var adapter: SearchNameRecyclerAdapter
-    private lateinit var binding: FragmentCharacterSearchBinding
+    private val characters = mutableStateOf(arrayListOf<CharacterSearchResult>())
+    private var isLoading by mutableStateOf(false)
 
-    /**
-     * inflating the view
-     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentCharacterSearchBinding.inflate(inflater)
-        return binding.root
+    ): View = inflater.inflate(R.layout.fragment_character_search, container, false).apply {
+        findViewById<ComposeView>(R.id.compose).setContent {
+            StarWarsTheme {
+                var character by remember { mutableStateOf("") }
+                SearchCharacterCompose(
+                    character = character,
+                    characters = characters.value,
+                    onCharacterChanged = {
+                        character = it
+                        viewModel.searchCharacterName(it)
+                    },
+                    onCharacterClicked = {
+                        findNavController().navigate(
+                            SearchCharacterFragmentDirections.showCharacterDetailsAction(it)
+                        )
+                    },
+                    isLoading = isLoading
+                )
+            }
+        }
     }
 
-    /**
-     * All codes are here
-     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        viewModel.searchResultData().observe(viewLifecycleOwner) {
-
+        viewModel.searchNameData.observe(viewLifecycleOwner) {
             when (it) {
-                is SearchCharacterResource.Loading -> {
-                    binding.loading.visibility = View.VISIBLE
-                }
+                is SearchCharacterResource.Loading -> isLoading = true
                 is SearchCharacterResource.Error -> {
-                    binding.loading.visibility = View.INVISIBLE
-                    showError(requireView(), getString(R.string.some_errors_while_fetching_data)) {
-                        searchCharacter(binding.edtSearchName.text.toString())
-                    }
+                    isLoading = false
+                    showError(requireView(), getString(R.string.some_errors_while_fetching_data)) {}
                 }
                 is SearchCharacterResource.Success -> {
-                    binding.loading.visibility = View.INVISIBLE
-                    showResultsInRecycler(it.data?.results?.toMutableList())
+                    isLoading = false
+                    characters.value.clear()
+                    characters.value.addAll(it.data?.results!!)
                 }
             }
         }
-
-        // instantiating the Recycler
-        makeRecyclerAdapter()
-
-        // starting the search by clicking on the image
-        binding.imgSearch.setOnClickListener {
-            searchCharacter(binding.edtSearchName.text.toString())
-        }
-
-        // starting the search by keyboard
-        binding.edtSearchName.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                searchCharacter(binding.edtSearchName.text.toString())
-            }
-            true
-        }
-    }
-
-    private fun searchCharacter(characterName: String) {
-        viewModel.searchCharacterName(characterName)
-    }
-
-    private fun makeRecyclerAdapter() {
-        adapter = SearchNameRecyclerAdapter(SearchCharacterDiffUtilsCallback()) { url: String ->
-            onCharacterSelected(url)
-        }
-        binding.recycler.adapter = adapter
-    }
-
-    private fun onCharacterSelected(url: String) {
-        val action = SearchCharacterFragmentDirections.showCharacterDetailsAction(url)
-        Navigation.findNavController(requireView()).navigate(action)
-    }
-
-    private fun showResultsInRecycler(searchData: List<CharacterSearchResult>?) {
-        adapter.submitList(searchData)
     }
 }

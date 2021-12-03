@@ -8,9 +8,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/compose-model-1638460786422.xml" value="0.3559966216216216" />
+        <entry key="../../../../layout/compose-model-1638468612045.xml" value="0.2608743271788462" />
+        <entry key="../../../../layout/compose-model-1638536840630.xml" value="1.1019031088114835" />
+        <entry key="../../../../layout/compose-model-1638540144685.xml" value="0.7157407407407408" />
+        <entry key="../../../../layout/custom_preview.xml" value="0.240625" />
         <entry key="app/src/main/res/drawable/search_edittext_back.xml" value="0.2833333333333333" />
         <entry key="app/src/main/res/drawable/search_item_background.xml" value="0.2833333333333333" />
         <entry key="app/src/main/res/layout/character_search_item.xml" value="0.23867753623188406" />
+        <entry key="app/src/main/res/layout/fragment_character_details.xml" value="0.2265625" />
+        <entry key="app/src/main/res/layout/fragment_character_search.xml" value="0.2671875" />
       </map>
     </option>
   </component>

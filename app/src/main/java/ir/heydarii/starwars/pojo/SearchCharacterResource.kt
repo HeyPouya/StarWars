@@ -1,12 +1,9 @@
-package ir.heydarii.starwars.features.searchname.response
+package ir.heydarii.starwars.pojo
 
 /**
  * Response resource for
  */
-sealed class SearchCharacterResource<T>(
-    val data: T? = null,
-    val message: String? = null
-) {
+sealed class SearchCharacterResource<T>(val data: T? = null, val message: String? = null) {
     /**
      * When we get the response successfully
      */
