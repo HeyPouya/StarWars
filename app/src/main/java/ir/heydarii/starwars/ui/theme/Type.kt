@@ -1,28 +1,23 @@
 package ir.heydarii.starwars.ui.theme
 
-import androidx.compose.material.Typography
+import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-// Set of Material typography styles to start with
 val Typography = Typography(
-    body1 = TextStyle(
-        fontFamily = FontFamily.Default,
+    titleLarge = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
-    )
-    /* Other default text styles to override
-    button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
+        fontSize = 18.sp,
+        lineHeight = 24.sp,
+        letterSpacing = 0.5.sp,
     ),
-    caption = TextStyle(
-        fontFamily = FontFamily.Default,
+    bodyMedium = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
-    )
-    */
+        fontSize = 14.sp,
+    ),
+    bodyLarge = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp,
+    ),
 )

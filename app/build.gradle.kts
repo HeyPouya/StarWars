@@ -1,6 +1,4 @@
-import org.gradle.kotlin.dsl.precompile.PrecompiledProjectScript.NullPluginDependencySpec.version
-
-plugins{
+plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
@@ -9,24 +7,26 @@ plugins{
 }
 
 android {
-    compileSdk = 31
-    buildToolsVersion = "30.0.2"
+    compileSdk = libs.versions.compileSdkVersion.get().toInt()
     defaultConfig {
         applicationId = "ir.heydarii.starwars"
-        minSdk = 21
-        targetSdk = 31
-        versionCode = 300
-        versionName = "3.0.0"
+        minSdk = libs.versions.composeMinSdkVersion.get().toInt()
+        targetSdk = libs.versions.targetSdkVersion.get().toInt()
+        versionCode = libs.versions.appVersion.get().toInt()
+        versionName = libs.versions.appVersion.get()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
     }
     buildTypes {
-        getByName("release")  {
+        getByName("release") {
             isShrinkResources = true
             isMinifyEnabled = true
-            proguardFiles( getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     buildFeatures {
@@ -41,51 +41,52 @@ android {
         jvmTarget = "1.8"
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.0.5"
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
     }
+    namespace = "ir.heydarii.starwars"
 }
 
 dependencies {
 
     // Kotlin
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
-    implementation ("androidx.core:core-ktx:1.7.0")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
+    implementation(libs.coroutines)
 
-    // Support libraries
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.2")
-    implementation ("androidx.appcompat:appcompat:1.4.0")
-    implementation ("com.google.android.material:material:1.4.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
-
-    //test libraries
-    testImplementation ("junit:junit:4.13.2")
-    androidTestImplementation ("androidx.test:runner:1.4.0")
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.material)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
     // Retrofit and Moshi
-    implementation ("com.squareup.retrofit2:retrofit:${rootProject.extra["retrofit_version"]}")
-    implementation ("com.squareup.retrofit2:converter-moshi:${rootProject.extra["retrofit_version"]}")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_version"]}")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.12.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3")
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.moshi.converter)
+    kapt(libs.moshi.kotlin.codegen)
+    implementation(libs.logging.interceptor)
 
     // Hilt
-    implementation ("com.google.dagger:hilt-android:${rootProject.extra["hilt_version"]}")
-    kapt ("com.google.dagger:hilt-compiler:${rootProject.extra["hilt_version"]}")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
     // ViewModel and LiveData
-    implementation ("androidx.lifecycle:lifecycle-extensions:${rootProject.extra["lifecycle_version"]}")
+    implementation(libs.androidx.lifecycle.extensions)
 
     // Navigation Component
-    implementation ("androidx.navigation:navigation-fragment-ktx:${rootProject.extra["nav_version"]}")
-    implementation ("androidx.navigation:navigation-ui-ktx:${rootProject.extra["nav_version"]}")
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
-    // Compose
-    implementation ("androidx.compose.material:material:1.0.5")
-    implementation ("androidx.compose.foundation:foundation:1.0.5")
-    implementation("androidx.compose.ui:ui:${rootProject.extra["compose_version"]}")
-    implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["compose_version"]}")
-    implementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
+    // compose
+    val composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.activity)
+    implementation(libs.androidx.compose.material)
+
+    // testing dependency
+    testImplementation(libs.junit4)
+    androidTestImplementation(libs.androidTestJUnit)
+    androidTestImplementation(libs.androidTestRules)
+    androidTestImplementation(libs.androidTestEspresso)
+    androidTestImplementation(composeBom)
 
 }

@@ -4,12 +4,22 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -62,14 +72,18 @@ fun SearchCharacterCompose(
                     color = Color.Gray,
                 )
             },
-            colors = TextFieldDefaults.textFieldColors(
-                textColor = MaterialTheme.colors.onPrimary,
-                cursorColor = MaterialTheme.colors.onPrimary,
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = MaterialTheme.colorScheme.onPrimary,
+                cursorColor = MaterialTheme.colorScheme.onPrimary,
                 focusedIndicatorColor = Color.Transparent
             ),
             modifier = Modifier
                 .padding(16.dp, 0.dp)
-                .border(1.dp, MaterialTheme.colors.searchStrokeColor, MaterialTheme.shapes.medium)
+                .border(
+                    1.dp,
+                    MaterialTheme.colorScheme.searchStrokeColor,
+                    MaterialTheme.shapes.medium
+                )
                 .fillMaxWidth()
         )
         Spacer(modifier = Modifier.size(8.dp))
@@ -88,7 +102,7 @@ fun SearchCharacterCompose(
 fun LeadingProgressbar() {
     CircularProgressIndicator(
         modifier = Modifier.size(32.dp),
-        color = MaterialTheme.colors.searchStrokeColor,
+        color = MaterialTheme.colorScheme.searchStrokeColor,
         strokeWidth = 1.dp
     )
 }
@@ -111,13 +125,13 @@ fun CharacterItem(name: String, url: String, onCharacterClicked: (String) -> Uni
         modifier = Modifier
             .clickable { onCharacterClicked(url) }
             .fillMaxWidth()
-            .background(MaterialTheme.colors.itemBackground, MaterialTheme.shapes.medium),
+            .background(MaterialTheme.colorScheme.itemBackground, MaterialTheme.shapes.medium),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.size(8.dp))
         Text(
             text = name,
-            color = MaterialTheme.colors.onPrimary,
+            color = MaterialTheme.colorScheme.onPrimary,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             maxLines = 1,
