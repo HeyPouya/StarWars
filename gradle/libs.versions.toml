@@ -28,7 +28,7 @@ coroutines = "1.7.3"
 fragment = "1.6.1"
 androidxComposeBom = "2023.06.01"
 composeActivity = "1.7.2"
-navivagation = "2.6.0"
+navivagation = "2.7.2"
 retrofit = "2.9.0"
 
 [libraries]
