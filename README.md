@@ -2,7 +2,6 @@
 An Android application to learn latest technologies in android world!
 
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
-[![Build Status](https://travis-ci.org/SirLordPouya/StarWars.svg?branch=master)](https://travis-ci.org/SirLordPouya/StarWars)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a1be10d0e71443e4a4aeb6d893e32a8f)](https://www.codacy.com/manual/SirLordPouya/StarWars?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SirLordPouya/StarWars&amp;utm_campaign=Badge_Grade)
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
