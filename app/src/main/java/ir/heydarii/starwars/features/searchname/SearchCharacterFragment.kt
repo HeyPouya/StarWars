@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ir.heydarii.starwars.R
 import ir.heydarii.starwars.base.BaseFragment
-import ir.heydarii.starwars.features.searchname.compose.SearchCharacterCompose
+import ir.heydarii.starwars.features.searchname.compose.SearchCharacterScreen
 import ir.heydarii.starwars.pojo.CharacterSearchResult
 import ir.heydarii.starwars.pojo.SearchCharacterResource
 import ir.heydarii.starwars.ui.theme.StarWarsTheme
@@ -26,7 +26,7 @@ import ir.heydarii.starwars.ui.theme.StarWarsTheme
 class SearchCharacterFragment : BaseFragment() {
 
     private val viewModel by viewModels<SearchCharacterViewModel>()
-    private val characters = mutableStateOf(arrayListOf<CharacterSearchResult>())
+    private val characters = mutableStateOf(listOf<CharacterSearchResult>())
     private var isLoading by mutableStateOf(false)
 
     override fun onCreateView(
@@ -37,7 +37,7 @@ class SearchCharacterFragment : BaseFragment() {
         findViewById<ComposeView>(R.id.compose).setContent {
             StarWarsTheme {
                 var character by remember { mutableStateOf("") }
-                SearchCharacterCompose(
+                SearchCharacterScreen(
                     character = character,
                     characters = characters.value,
                     onCharacterChanged = {
@@ -65,10 +65,10 @@ class SearchCharacterFragment : BaseFragment() {
                     isLoading = false
                     showError(requireView(), getString(R.string.some_errors_while_fetching_data)) {}
                 }
+
                 is SearchCharacterResource.Success -> {
                     isLoading = false
-                    characters.value.clear()
-                    characters.value.addAll(it.data?.results!!)
+                    characters.value = it.data?.results!!
                 }
             }
         }
