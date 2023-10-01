@@ -1,9 +1,9 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-kapt")
-    id("androidx.navigation.safeargs.kotlin")
-    id("dagger.hilt.android.plugin")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.androidx.safeArgs)
 }
 
 android {
@@ -59,12 +59,13 @@ dependencies {
     // Retrofit and Moshi
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi.converter)
-    kapt(libs.moshi.kotlin.codegen)
+    ksp(libs.moshi.kotlin.codegen)
     implementation(libs.logging.interceptor)
 
     // Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
+    ksp(libs.dagger.compiler)
 
     // ViewModel and LiveData
     implementation(libs.androidx.lifecycle.extensions)
