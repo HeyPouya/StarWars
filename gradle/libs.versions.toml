@@ -2,7 +2,7 @@
 appVersion = "1000"
 compileSdkVersion = "34"
 targetSdkVersion = "34"
-hiltAndroid = "2.48"
+hiltAndroid = "2.52"
 lifecycleExtensions = "2.2.0"
 lifecycleRuntimeKtx = "2.6.2"
 loggingInterceptor = "5.0.0-alpha.11"
