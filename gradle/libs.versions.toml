@@ -28,7 +28,7 @@ coroutines = "1.7.3"
 fragment = "1.6.1"
 androidxComposeBom = "2023.09.01"
 composeActivity = "1.7.2"
-navivagation = "2.7.3"
+navivagation = "2.8.3"
 retrofit = "2.9.0"
 kspVersion = "1.9.10-1.0.13"
 
